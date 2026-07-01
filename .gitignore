@@ -20,6 +20,6 @@ __pycache__/
 *.pyc
 
 # Tool directories
-.opencode/
+.mimocode/
 .playwright-mcp/
 openspec/
