@@ -1043,6 +1043,192 @@ export function init() { /* ... */ }
 
 ---
 
+## §10b Additional Techniques (from Video Transcripts)
+
+### align-content on Block Elements (Chrome 123+)
+
+```css
+/* Center vertically without flexbox/grid */
+.center-block {
+  text-align: center;
+  align-content: center;
+  min-height: 200px;
+}
+```
+
+### Customizable Select (appearance: base-select)
+
+```css
+/* Opt into new select model */
+select {
+  appearance: base-select;
+}
+
+/* Style the picker dropdown */
+select::picker {
+  appearance: base-select;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+/* Rotate arrow when open */
+select:open::picker-icon {
+  transform: rotate(180deg);
+  transition: transform 0.3s;
+}
+
+/* Style the checkmark */
+option::checkmark {
+  content: '✓';
+  color: green;
+}
+```
+
+### display: contents
+
+```css
+/* Remove element from layout, children become direct children of parent */
+.wrapper {
+  display: contents;
+}
+```
+
+- Useful for maintaining flex/grid layouts with wrapper elements
+- Wrapper disappears from layout flow, children inherit parent's grid
+
+### CSS Counters for Numbering
+
+```css
+/* Auto-number headings */
+:root { counter-reset: heading; }
+h2 { counter-increment: heading; }
+h2::before {
+  content: counter(heading) ". ";
+  font-weight: bold;
+}
+```
+
+### :popover-open Pseudo-class
+
+```css
+/* Style popover only when open */
+.menu:popover-open {
+  display: grid;
+}
+```
+
+- Browser toggles display automatically — don't set display manually
+
+### Inert Attribute (Accessibility)
+
+```html
+<!-- Make element non-interactive and invisible to assistive tech -->
+<div inert>
+  <button>This button is unreachable</button>
+</div>
+```
+
+- Prevents focus and click events on disabled content
+- Useful for off-screen menus, background content during modals
+
+### Skip Link (Accessibility)
+
+```html
+<a href="#main" class="skip-link">Skip to content</a>
+<main id="main">...</main>
+```
+
+```css
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  padding: 8px;
+  background: #000;
+  color: white;
+  z-index: 100;
+  transition: top 0.3s;
+}
+.skip-link:focus { top: 0; }
+```
+
+### Glow Effect with Box-Shadow
+
+```css
+.glow {
+  box-shadow: 40px 0 100px blue, -40px 0 100px purple;
+}
+```
+
+### Gradient Fill on Hover
+
+```css
+.btn {
+  position: relative;
+  z-index: 0;
+}
+.btn::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  z-index: -1;
+  border-radius: inherit;
+}
+.btn:hover::after { z-index: 0; }
+```
+
+### Ternary Operator (JS Pattern)
+
+```javascript
+// Concise conditional
+const result = condition ? valueIfTrue : valueIfFalse;
+
+// In event handlers
+darkMode !== 'active' ? enableDark() : disableDark();
+```
+
+### Early Return Pattern (JS)
+
+```javascript
+// Guard clauses — exit early, keep happy path flat
+function processUser(user) {
+  if (!user) return;
+  if (!user.loggedIn) return;
+  if (!user.email) return;
+  // happy path here
+}
+```
+
+### Spread Operator for Immutable Copies
+
+```javascript
+// Object copy (breaks reference)
+const copy = { ...original };
+
+// Override specific property
+const updated = { ...product, price: product.price * 0.5 };
+
+// Array copy
+const newArr = [...oldArr];
+```
+
+### localStorage for Preferences
+
+```javascript
+// Save
+localStorage.setItem('theme', 'dark');
+
+// Load (returns string or null)
+const saved = localStorage.getItem('theme');
+
+// Remove
+localStorage.removeItem('theme');
+```
+
+---
+
 ## §11 Cookbook Reference
 
 Patterns live in `cookbook/` — each is a standalone HTML file with embedded CSS. Browse before writing new CSS from scratch.
