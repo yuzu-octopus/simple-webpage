@@ -1,0 +1,136 @@
+[project]
+name = "simple-webpage"
+tagline = "Vanilla HTML/CSS/JS — No frameworks, no build steps, no bloat"
+description = "A comprehensive reference repository and OpenCode agent skill for building webpages with vanilla HTML, CSS, and JavaScript. 1,700+ lines of patterns, 30+ cookbook demos, modern CSS techniques, and a reusable SKILL.md for AI agents."
+page_url = "https://yuzu-octopus.github.io/simple-webpage/"
+github_url = "https://github.com/yuzu-octopus/simple-webpage"
+quickstart_url = "https://github.com/yuzu-octopus/simple-webpage#quick-start"
+logo_svg = """<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="4" y="8" width="56" height="48" rx="4" stroke="#bd93f9" stroke-width="2"/>
+<rect x="4" y="8" width="56" height="12" fill="#44475a"/>
+<circle cx="12" cy="14" r="2" fill="#ff5555"/>
+<circle cx="18" cy="14" r="2" fill="#f1fa8c"/>
+<circle cx="24" cy="14" r="2" fill="#50fa7b"/>
+<text x="32" y="44" text-anchor="middle" fill="#bd93f9" font-family="monospace" font-size="14" font-weight="bold">&lt;/&gt;</text>
+</svg>"""
+favicon_data = """<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+<rect x="2" y="4" width="28" height="24" rx="2" fill="#282a36" stroke="#bd93f9" stroke-width="1.5"/>
+<rect x="2" y="4" width="28" height="6" fill="#44475a"/>
+<circle cx="6" cy="7" r="1" fill="#ff5555"/>
+<circle cx="9" cy="7" r="1" fill="#f1fa8c"/>
+<circle cx="12" cy="7" r="1" fill="#50fa7b"/>
+<text x="16" y="22" text-anchor="middle" fill="#bd93f9" font-family="monospace" font-size="8" font-weight="bold">&lt;/&gt;</text>
+</svg>"""
+
+[brand]
+tagline = "Built by yuzu-octopus"
+
+[[sections]]
+id = "about"
+title = "About"
+icon = "info"
+type = "text"
+body = """
+<p>simple-webpage is a vanilla HTML/CSS/JS reference repository and reusable OpenCode agent skill. No frameworks, no build steps, no bloat.</p>
+<p>Inspired by 37signals (Campfire/Writebook), Coding2GO, and the ponytail YAGNI philosophy — modern CSS is powerful enough that most projects don't need React, Tailwind, or any build tool.</p>
+"""
+
+[[sections]]
+id = "features"
+title = "What's Inside"
+icon = "grid"
+type = "features"
+
+[[sections.items]]
+title = "SKILL.md (1,700+ lines)"
+body = "Comprehensive agent skill with philosophy, decision framework, HTML/CSS/JS patterns, framework allowlist, anti-patterns, and accessibility minimums."
+
+[[sections.items]]
+title = "Cookbook (30+ patterns)"
+body = "Standalone HTML demos for layouts, navigation, forms, cards, effects, interactivity, and typography. Open in browser, copy into your project."
+
+[[sections.items]]
+title = "Design Tokens"
+body = "4-layer token system: base (raw values) → semantic (meaningful names) → components (UI-specific) → typography (fluid scale)."
+
+[[sections.items]]
+title = "Documentation"
+body = "Principles, component specs, guides (modern CSS, accessibility, dark mode, responsive, animations), and step-by-step tutorials."
+
+[[sections.items]]
+title = "Framework Allowlist"
+body = "18+ curated CSS frameworks across 5 categories: classless, shadcn-aesthetic, minimal-class, Tailwind-based, and effect libraries."
+
+[[sections.items]]
+title = "Modern CSS"
+body = "OKLCH colors, nesting, @layer, :has(), clamp(), container queries, scroll-snap, anchor positioning, View Transitions, and more."
+
+[[sections]]
+id = "techniques"
+title = "Techniques Covered"
+icon = "layers"
+type = "stack"
+
+[[sections.items]]
+name = "HTML"
+body = "Semantic elements, dialog, details, popover, ARIA, tables, forms"
+
+[[sections.items]]
+name = "CSS"
+body = "Nesting, @layer, :has, clamp, container queries, OKLCH, subgrid"
+
+[[sections.items]]
+name = "JS"
+body = "DOM, localStorage, async/await, event delegation, ES modules"
+
+[[sections.items]]
+name = "Effects"
+body = "Glassmorphism, neumorphism, gradient text, scroll-snap, animations"
+
+[[sections.items]]
+name = "Accessibility"
+body = "Focus-visible, prefers-reduced-motion, ARIA, semantic HTML"
+
+[[sections]]
+id = "getting-started"
+title = "Getting Started"
+icon = "play"
+type = "steps"
+
+[[sections.items]]
+title = "1. Browse the cookbook"
+body = "Open any file in skills/simple-webpage/cookbook/ in your browser."
+
+[[sections.items]]
+title = "2. Copy patterns"
+body = "Grab the HTML/CSS you need and paste into your project."
+
+[[sections.items]]
+title = "3. Customize tokens"
+body = "Override CSS custom properties from tokens/ to match your brand."
+
+[[sections.items]]
+title = "4. Load the skill"
+body = "Add SKILL.md to your OpenCode config for AI-assisted development."
+
+[[sections]]
+id = "stack"
+title = "Tech Stack"
+icon = "chip"
+type = "stack"
+
+[[sections.items]]
+name = "HTML5"
+body = "Semantic markup, no frameworks"
+
+[[sections.items]]
+name = "CSS3"
+body = "Modern features, no preprocessor"
+
+[[sections.items]]
+name = "Vanilla JS"
+body = "No React, Vue, or build tools"
+
+[[sections.items]]
+name = "Zero Dependencies"
+body = "No npm, no node_modules"
