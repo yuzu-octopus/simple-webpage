@@ -18,3 +18,8 @@ extraction/
 .venv/
 __pycache__/
 *.pyc
+
+# Tool directories
+.opencode/
+.playwright-mcp/
+openspec/
