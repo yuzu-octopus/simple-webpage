@@ -1,0 +1,696 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>simple-webpage | Vanilla HTML/CSS/JS — No frameworks, no build steps, no bloat</title>
+  <meta name="description" content="A comprehensive reference repository and OpenCode agent skill for building webpages with vanilla HTML, CSS, and JavaScript. 1,700+ lines of patterns, 30+ cookbook demos, modern CSS techniques, and a reusable SKILL.md for AI agents.">
+  <meta name="theme-color" content="#282a36">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="simple-webpage | Vanilla HTML/CSS/JS — No frameworks, no build steps, no bloat">
+  <meta property="og:description" content="A comprehensive reference repository and OpenCode agent skill for building webpages with vanilla HTML, CSS, and JavaScript. 1,700+ lines of patterns, 30+ cookbook demos, modern CSS techniques, and a reusable SKILL.md for AI agents.">
+  <meta property="og:url" content="https://yuzu-octopus.github.io/simple-webpage/">
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="simple-webpage | Vanilla HTML/CSS/JS — No frameworks, no build steps, no bloat">
+  <meta name="twitter:description" content="A comprehensive reference repository and OpenCode agent skill for building webpages with vanilla HTML, CSS, and JavaScript. 1,700+ lines of patterns, 30+ cookbook demos, modern CSS techniques, and a reusable SKILL.md for AI agents.">
+  
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%2032%2032%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%0A%3Crect%20x%3D%222%22%20y%3D%224%22%20width%3D%2228%22%20height%3D%2224%22%20rx%3D%222%22%20fill%3D%22%23282a36%22%20stroke%3D%22%23bd93f9%22%20stroke-width%3D%221.5%22/%3E%0A%3Crect%20x%3D%222%22%20y%3D%224%22%20width%3D%2228%22%20height%3D%226%22%20fill%3D%22%2344475a%22/%3E%0A%3Ccircle%20cx%3D%226%22%20cy%3D%227%22%20r%3D%221%22%20fill%3D%22%23ff5555%22/%3E%0A%3Ccircle%20cx%3D%229%22%20cy%3D%227%22%20r%3D%221%22%20fill%3D%22%23f1fa8c%22/%3E%0A%3Ccircle%20cx%3D%2212%22%20cy%3D%227%22%20r%3D%221%22%20fill%3D%22%2350fa7b%22/%3E%0A%3Ctext%20x%3D%2216%22%20y%3D%2222%22%20text-anchor%3D%22middle%22%20fill%3D%22%23bd93f9%22%20font-family%3D%22monospace%22%20font-size%3D%228%22%20font-weight%3D%22bold%22%3E%26lt%3B/%26gt%3B%3C/text%3E%0A%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #282a36;
+      --panel: #44475a;
+      --fg: #f8f8f2;
+      --muted: #6272a4;
+      --purple: #bd93f9;
+      --pink: #ff79c6;
+      --cyan: #8be9fd;
+      --green: #50fa7b;
+      --orange: #ffb86c;
+      --red: #ff5555;
+      --yellow: #f1fa8c;
+      --font: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; scrollbar-width: thin; scrollbar-color: var(--panel) var(--bg); }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--fg);
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    a { color: var(--cyan); text-decoration: none; }
+    a:hover { color: var(--pink); }
+    a:focus-visible,
+    .btn:focus-visible,
+    .mobile-toggle:focus-visible {
+      outline: 2px solid var(--pink);
+      outline-offset: 2px;
+    }
+
+    h1, h2, h3, h4 { font-weight: 700; }
+
+    .sidebar {
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      width: 240px;
+      background: var(--panel);
+      border-right: 1px solid var(--muted);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      z-index: 1200;
+    }
+
+    .sidebar-brand {
+      text-align: center;
+      padding: 16px;
+    }
+
+    .sidebar-brand .logo {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+
+    .sidebar-brand .logo svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .sidebar-brand .name {
+      color: var(--purple);
+      font-size: 1.25rem;
+      font-weight: 700;
+      line-height: 1.6;
+    }
+
+    .sidebar-brand .tagline {
+      color: var(--muted);
+      font-size: 0.75rem;
+      line-height: 1.66;
+    }
+
+    .sidebar-divider {
+      border: none;
+      border-top: 1px solid var(--muted);
+      margin: 0;
+    }
+
+    .sidebar-nav {
+      flex: 1;
+    }
+
+    .sidebar-nav ul {
+      list-style: none;
+    }
+
+    .sidebar-nav li {
+      margin: 0;
+    }
+
+    .sidebar-nav a {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      padding: 8px 0;
+      min-height: 48px;
+      color: var(--fg);
+      font-size: 1rem;
+      transition: background 250ms cubic-bezier(0.4, 0, 0.2, 1);
+      text-decoration: none;
+    }
+
+    .sidebar-nav a:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .sidebar-nav a .icon {
+      width: 56px;
+      min-width: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .sidebar-nav a .icon svg {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+    }
+
+    .sidebar-footer {
+      font-size: 0.75rem;
+      line-height: 1.66;
+      color: var(--muted);
+      padding: 16px;
+      text-align: left;
+    }
+
+    .sidebar-footer div { margin-bottom: 0; }
+
+    .sidebar-footer a {
+      color: var(--purple);
+    }
+
+    .main {
+      margin-left: 240px;
+      min-height: 100vh;
+    }
+
+    section {
+      padding: 48px 40px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    h2 {
+      color: var(--purple);
+      border-bottom: 2px solid var(--purple);
+      padding-bottom: 8px;
+      font-size: 1.6rem;
+      margin-bottom: 24px;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 80px 40px 48px;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      color: var(--purple);
+      margin-bottom: 12px;
+    }
+
+    .hero .tagline {
+      font-size: 1.2rem;
+      color: var(--fg);
+      margin-bottom: 16px;
+    }
+
+    .hero .subtitle {
+      font-size: 0.9rem;
+      color: var(--muted);
+      max-width: 650px;
+      margin: 0 auto 32px;
+    }
+
+    .cta {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 8px 16px;
+      font-size: 0.8rem;
+      border: 1px solid var(--muted);
+      border-radius: 4px;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: var(--purple);
+      color: var(--bg);
+      border-color: var(--purple);
+    }
+
+    .btn-primary:hover {
+      background: var(--pink);
+      border-color: var(--pink);
+      color: var(--fg);
+    }
+
+    .btn-outline {
+      color: var(--cyan);
+      border-color: var(--cyan);
+    }
+
+    .btn-outline:hover {
+      color: var(--pink);
+      border-color: var(--pink);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--muted);
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+      border-color: var(--purple);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    }
+
+    .card h3 {
+      color: var(--purple);
+      font-size: 1.05rem;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      color: var(--fg);
+      font-size: 0.8rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--panel);
+      border: 1px solid var(--muted);
+      border-radius: 8px;
+      overflow: hidden;
+      font-size: 0.8rem;
+    }
+
+    th, td {
+      padding: 10px 14px;
+      text-align: left;
+      border-bottom: 1px solid var(--muted);
+    }
+
+    th {
+      background: var(--bg);
+      color: var(--fg);
+      font-weight: 700;
+    }
+
+    tr:last-child td { border-bottom: none; }
+
+    tr:hover td { background: rgba(255, 255, 255, 0.05); }
+
+    .status-comfortable { color: var(--green); }
+    .status-tight { color: var(--orange); }
+
+    pre {
+      background: var(--bg);
+      border: 1px solid var(--muted);
+      border-radius: 6px;
+      padding: 16px;
+      overflow-x: auto;
+    }
+
+    pre code {
+      color: var(--green);
+      font-size: 0.8rem;
+      line-height: 1.6;
+    }
+
+    code {
+      font-family: var(--font);
+      color: var(--green);
+      background: var(--panel);
+      padding: 1px 6px;
+      border-radius: 3px;
+      font-size: 0.8em;
+    }
+
+    pre code {
+      background: transparent;
+      padding: 0;
+    }
+
+    .steps {
+      list-style: none;
+      padding: 0;
+    }
+
+    .steps li {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--muted);
+      color: var(--fg);
+      font-size: 0.85rem;
+    }
+
+    .steps li:last-child { border-bottom: none; }
+
+    .steps li strong { color: var(--purple); }
+
+    .stats {
+      list-style: none;
+      padding: 0;
+    }
+
+    .stats li {
+      padding: 8px 0;
+      border-bottom: 1px solid var(--muted);
+      color: var(--fg);
+      font-size: 0.85rem;
+    }
+
+    .stats li:last-child { border-bottom: none; }
+
+    .stats li strong { color: var(--purple); }
+
+    .terms {
+      list-style: none;
+      padding: 0;
+    }
+
+    .terms li {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .terms li:last-child { border-bottom: none; }
+
+    .terms li .term {
+      color: var(--purple);
+      font-weight: 700;
+    }
+
+    .stack {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .stack .badge {
+      background: var(--panel);
+      border: 1px solid var(--muted);
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      color: var(--fg);
+    }
+
+    .stack .badge strong { color: var(--purple); }
+
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--panel); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+
+    .skip-link { position: absolute; left: -9999px; }
+    .skip-link:focus { left: 8px; top: 8px; background: var(--purple); color: var(--bg); padding: 8px 12px; z-index: 1300; }
+
+    .mobile-toggle {
+      display: none;
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      z-index: 1200;
+      background: var(--panel);
+      border: 1px solid var(--muted);
+      color: var(--fg);
+      padding: 10px 12px;
+      min-width: 44px;
+      min-height: 44px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .mobile-toggle:hover {
+      background: var(--muted);
+    }
+
+    .sidebar-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1100;
+    }
+
+    @media (max-width: 900px) {
+      .sidebar { display: none; }
+      .main { margin-left: 0; }
+      .mobile-toggle { display: block; }
+      .sidebar.open { display: flex; }
+      .sidebar-overlay.open { display: block; }
+    }
+  </style>
+</head>
+<body>
+
+
+
+<button class="mobile-toggle" id="mobile-toggle" onclick="toggleSidebar()" aria-label="Toggle mobile menu" aria-controls="sidebar" aria-expanded="false">&#9776;</button>
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+<a class="skip-link" href="#main-content">Skip to content</a>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <div class="logo"><svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="4" y="8" width="56" height="48" rx="4" stroke="#bd93f9" stroke-width="2"/>
+<rect x="4" y="8" width="56" height="12" fill="#44475a"/>
+<circle cx="12" cy="14" r="2" fill="#ff5555"/>
+<circle cx="18" cy="14" r="2" fill="#f1fa8c"/>
+<circle cx="24" cy="14" r="2" fill="#50fa7b"/>
+<text x="32" y="44" text-anchor="middle" fill="#bd93f9" font-family="monospace" font-size="14" font-weight="bold">&lt;/&gt;</text>
+</svg></div>
+    <div class="name">simple-webpage</div>
+    <div class="tagline">Built by yuzu-octopus</div>
+  </div>
+  <hr class="sidebar-divider">
+  <nav class="sidebar-nav" aria-label="Main navigation">
+    <ul>
+      <li><a href="#hero"><span class="icon">
+
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 12l9-9 9 9"/><path d="M5 10v9a1 1 0 0 0 1 1h3v-5h6v5h3a1 1 0 0 0 1-1v-9"/></svg>
+
+</span> Home</a></li>
+      
+      <li><a href="#about"><span class="icon">
+
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M12 8h.01"/><path d="M11 12h1v4h1"/></svg>
+
+</span> About</a></li>
+      
+      <li><a href="#features"><span class="icon">
+
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+
+</span> What's Inside</a></li>
+      
+      <li><a href="#techniques"><span class="icon">
+
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><polygon points="12 2 22 8.5 12 15 2 8.5"/><polyline points="2 15.5 12 22 22 15.5"/><polyline points="2 11.5 12 18 22 11.5"/></svg>
+
+</span> Techniques Covered</a></li>
+      
+      <li><a href="#getting-started"><span class="icon">
+
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><polygon points="6 3 20 12 6 21"/></svg>
+
+</span> Getting Started</a></li>
+      
+      <li><a href="#stack"><span class="icon">
+
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="5" y="5" width="14" height="14" rx="2"/><rect x="8" y="8" width="8" height="8" rx="1"/><path d="M5 10H3"/><path d="M5 14H3"/><path d="M21 10h-2"/><path d="M21 14h-2"/><path d="M10 3v2"/><path d="M14 3v2"/><path d="M10 19v2"/><path d="M14 19v2"/></svg>
+
+</span> Tech Stack</a></li>
+      
+    </ul>
+  </nav>
+  <hr class="sidebar-divider">
+  <div class="sidebar-footer">
+    <div>&copy; 2026 yuzu-octopus</div>
+    <div>Generated by <a href="https://github.com/yuzu-octopus/ProjectSite" target="_blank" rel="noopener noreferrer">ProjectSite</a></div>
+    <div>Powered by <a href="https://pages.github.com/" target="_blank" rel="noopener noreferrer">GitHub Pages</a></div>
+  </div>
+</aside>
+
+<main class="main" id="main-content">
+
+  <section id="hero" class="hero">
+    <div class="container">
+      <h1>simple-webpage</h1>
+      <p class="tagline">Vanilla HTML/CSS/JS — No frameworks, no build steps, no bloat</p>
+      <p class="subtitle"></p>
+      <div class="cta">
+        <a href="https://github.com/yuzu-octopus/simple-webpage" class="btn btn-primary">View on GitHub</a>
+        
+        <a href="https://github.com/yuzu-octopus/simple-webpage#quick-start" class="btn btn-outline">Quick Start</a>
+        
+      </div>
+    </div>
+  </section>
+
+  
+  <section id="about">
+    <div class="container">
+      <h2>About</h2>
+
+      
+      <p>simple-webpage is a vanilla HTML/CSS/JS reference repository and reusable OpenCode agent skill. No frameworks, no build steps, no bloat.</p>
+<p>Inspired by 37signals (Campfire/Writebook), Coding2GO, and the ponytail YAGNI philosophy — modern CSS is powerful enough that most projects don't need React, Tailwind, or any build tool.</p>
+
+
+      
+    </div>
+  </section>
+  
+  <section id="features">
+    <div class="container">
+      <h2>What's Inside</h2>
+
+      
+      <div class="grid">
+        
+        <div class="card">
+          <h3>SKILL.md (1,700+ lines)</h3>
+          <p>Comprehensive agent skill with philosophy, decision framework, HTML/CSS/JS patterns, framework allowlist, anti-patterns, and accessibility minimums.</p>
+        </div>
+        
+        <div class="card">
+          <h3>Cookbook (30+ patterns)</h3>
+          <p>Standalone HTML demos for layouts, navigation, forms, cards, effects, interactivity, and typography. Open in browser, copy into your project.</p>
+        </div>
+        
+        <div class="card">
+          <h3>Design Tokens</h3>
+          <p>4-layer token system: base (raw values) → semantic (meaningful names) → components (UI-specific) → typography (fluid scale).</p>
+        </div>
+        
+        <div class="card">
+          <h3>Documentation</h3>
+          <p>Principles, component specs, guides (modern CSS, accessibility, dark mode, responsive, animations), and step-by-step tutorials.</p>
+        </div>
+        
+        <div class="card">
+          <h3>Framework Allowlist</h3>
+          <p>18+ curated CSS frameworks across 5 categories: classless, shadcn-aesthetic, minimal-class, Tailwind-based, and effect libraries.</p>
+        </div>
+        
+        <div class="card">
+          <h3>Modern CSS</h3>
+          <p>OKLCH colors, nesting, @layer, :has(), clamp(), container queries, scroll-snap, anchor positioning, View Transitions, and more.</p>
+        </div>
+        
+      </div>
+
+      
+    </div>
+  </section>
+  
+  <section id="techniques">
+    <div class="container">
+      <h2>Techniques Covered</h2>
+
+      
+      <div class="stack">
+        
+        <span class="badge"><strong>HTML</strong> &mdash; </span>
+        
+        <span class="badge"><strong>CSS</strong> &mdash; </span>
+        
+        <span class="badge"><strong>JS</strong> &mdash; </span>
+        
+        <span class="badge"><strong>Effects</strong> &mdash; </span>
+        
+        <span class="badge"><strong>Accessibility</strong> &mdash; </span>
+        
+      </div>
+
+      
+    </div>
+  </section>
+  
+  <section id="getting-started">
+    <div class="container">
+      <h2>Getting Started</h2>
+
+      
+      <ul class="steps">
+        
+        <li><strong>1. Browse the cookbook</strong> &mdash; Open any file in skills/simple-webpage/cookbook/ in your browser.</li>
+        
+        <li><strong>2. Copy patterns</strong> &mdash; Grab the HTML/CSS you need and paste into your project.</li>
+        
+        <li><strong>3. Customize tokens</strong> &mdash; Override CSS custom properties from tokens/ to match your brand.</li>
+        
+        <li><strong>4. Load the skill</strong> &mdash; Add SKILL.md to your OpenCode config for AI-assisted development.</li>
+        
+      </ul>
+
+      
+    </div>
+  </section>
+  
+  <section id="stack">
+    <div class="container">
+      <h2>Tech Stack</h2>
+
+      
+      <div class="stack">
+        
+        <span class="badge"><strong>HTML5</strong> &mdash; </span>
+        
+        <span class="badge"><strong>CSS3</strong> &mdash; </span>
+        
+        <span class="badge"><strong>Vanilla JS</strong> &mdash; </span>
+        
+        <span class="badge"><strong>Zero Dependencies</strong> &mdash; </span>
+        
+      </div>
+
+      
+    </div>
+  </section>
+  
+
+</main>
+
+<script>
+function toggleSidebar() {
+  var btn = document.getElementById('mobile-toggle');
+  var sidebar = document.querySelector('.sidebar');
+  var overlay = document.getElementById('sidebar-overlay');
+  var open = sidebar.classList.toggle('open');
+  overlay.classList.toggle('open');
+  btn.setAttribute('aria-expanded', open);
+}
+
+function closeSidebar() {
+  document.querySelector('.sidebar').classList.remove('open');
+  document.getElementById('sidebar-overlay').classList.remove('open');
+  document.getElementById('mobile-toggle').setAttribute('aria-expanded', 'false');
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape' && document.querySelector('.sidebar.open')) {
+    closeSidebar();
+  }
+});
+</script>
+</body>
+</html>
