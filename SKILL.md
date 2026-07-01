@@ -1,14 +1,9 @@
 ---
 name: vanilla-webpage
 description: >
-  Build webpages with vanilla HTML/CSS/JS — no frameworks, no build steps, no bloat.
-  Use when the user mentions "vanilla", "simple webpage", "no framework", "no build step",
-  "plain HTML", "CSS only", "no React", "no Tailwind", "no Bootstrap", "static site",
-  "landing page", "portfolio", "personal website", or "webpage".
-  Covers HTML semantics, modern CSS (nesting, @layer, :has(), clamp(), container queries),
-  vanilla JS patterns, design tokens, accessibility, and responsive design.
-  For CSS art or animations specifically, see icon-design. For React/Vue/Svelte, see webapp.
-  Inspired by 37signals (Campfire/Writebook), Coding2GO, and the ponytail YAGNI philosophy.
+  Build webpages with vanilla HTML/CSS/JS — no frameworks, no build steps.
+  Covers modern CSS (nesting, @layer, :has, clamp, container queries),
+  vanilla JS, design tokens, accessibility, responsive design.
 allowed-tools: Read Write Edit Bash WebSearch WebFetch
 ---
 
@@ -54,7 +49,7 @@ Can semantic HTML do it? → Yes → Done
 No → Can 20 lines of vanilla CSS do it? → Yes → Write the CSS
 No → Does a classless CSS framework solve it in one <link>? → Yes → Use it
 No → Is the problem interactivity? → Use vanilla JS (or HTMX for complex cases)
-No → OK, consider a lightweight component approach
+No → OK, consider server-driven interactivity or declarative DOM behavior under 15KB
 ```
 
 ---
@@ -67,6 +62,24 @@ No → OK, consider a lightweight component approach
 - **No `src/` / `dist/`** unless there's a build step (YAGNI)
 - **No `package.json`**, no `node_modules` for static pages
 - **Reference cookbook:** Browse `cookbook/` before writing new CSS from scratch
+
+### Minimal HTML Boilerplate
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Title</title>
+  <style>/* tokens + styles here */</style>
+</head>
+<body>
+  <main><!-- content --></main>
+  <script>/* app logic here */</script>
+</body>
+</html>
+```
 
 ---
 
@@ -82,6 +95,14 @@ No → OK, consider a lightweight component approach
 <dialog> for modals (no JS needed for the element itself)
 <picture>/<source> for responsive images
 ```
+
+### Choosing Overlay Primitives
+
+| Need | Use | Why |
+|------|-----|-----|
+| Modal (blocks page) | `<dialog>` | Focus trap, `::backdrop`, ESC to close |
+| Disclosure (optional visibility) | `<details>/<summary>` | No JS, semantic, SEO-friendly |
+| Non-modal tooltip/menu | `[popover]` | Lightweight, no focus trap, positioning |
 
 ### Dialog Element
 
@@ -120,6 +141,8 @@ No → OK, consider a lightweight component approach
 </form>
 ```
 
+Prefer HTML5 native validation (`required`, `pattern`, `type`) for simple cases. Use JS validation only for cross-field rules, custom error messages, or server-side confirmation.
+
 ### ARIA Attributes
 
 ```html
@@ -148,8 +171,8 @@ No → OK, consider a lightweight component approach
     <tr><th>Name</th><th>Email</th><th>Role</th></tr>
   </thead>
   <tbody>
-    <tr><td>Alex</td><td>alex@example.com</td><td>Developer</td></tr>
-    <tr><td>Jordan</td><td>jordan@example.com</td><td>Designer</td></tr>
+    <tr><td data-label="Name">Alex</td><td data-label="Email">alex@example.com</td><td data-label="Role">Developer</td></tr>
+    <tr><td data-label="Name">Jordan</td><td data-label="Email">jordan@example.com</td><td data-label="Role">Designer</td></tr>
   </tbody>
   <tfoot>
     <tr><td colspan="3">2 users total</td></tr>
@@ -179,7 +202,7 @@ No → OK, consider a lightweight component approach
 ```html
 <!-- Open dialog without JS -->
 <button commandfor="my-dialog" command="showModal">Open Dialog</button>
-<dialog id="my-dialog">Content</button>
+<dialog id="my-dialog">Content</dialog>
 
 <!-- Close dialog -->
 <button commandfor="my-dialog" command="close">Close</button>
@@ -324,6 +347,8 @@ a::before { content: attr(data-name); }
 }
 ```
 
+- Use when you have 3+ style sources (tokens, base, components, utilities) that need specificity ordering
+
 ### Fluid Typography with clamp()
 
 ```css
@@ -436,6 +461,8 @@ input:not([type="submit"]) { border: 1px solid #ccc; }
 /* Buttons auto-disable at scroll boundaries */
 /* Clicking a scroll button scrolls ~85% of viewport */
 ```
+
+- Chrome 135+, no Firefox/Safari support yet
 
 ### CSS-Only Dropdown with :checked
 
@@ -742,6 +769,8 @@ body {
 @media (max-width: 600px) { .gallery { columns: 1; } }
 ```
 
+> Use `light-dark()` for auto-only theme (respects OS). Use `data-theme` attribute toggle when user can override.
+
 ### Container Queries
 
 ```css
@@ -805,8 +834,8 @@ margin-top: 1rem;
   grid-template-rows: subgrid;
 }
 
-/* Override gap inside subgrid items */
-.card > * { gap: 0; }
+/* Override gap on the card itself (gap is a container property) */
+.card { gap: 0; }
 ```
 
 - Children inherit parent grid tracks instead of creating their own
@@ -840,8 +869,11 @@ document.startViewTransition(() => {
 
 - Animates between page states without a full page reload
 - Works with SPA navigation and MPA with `@view-transition`
+- Chrome 111+, Firefox behind flag, Safari 18+
 
 ### sibling-index() and sibling-count()
+
+> **Warning:** No widespread browser support yet. Use CSS counters or JavaScript for equivalent functionality in production.
 
 ```css
 /* Style based on element's position among siblings */
@@ -883,6 +915,7 @@ li::before {
 - New CSS property for controlling corner curvature
 - `round` (default), `superellipse`, `bevel`
 - Creates iOS-style squircle corners natively
+- Chrome 137+, experimental
 
 ### Position Fallbacks (@position-try)
 
@@ -1022,6 +1055,7 @@ container.appendChild(clone);
 
 - Efficient DOM cloning without re-parsing HTML
 - Content not rendered until added to DOM
+- Use `<template>` + `cloneNode` for reusable DOM fragments with event listeners. Use template literals for simple list rendering into `innerHTML`.
 
 ---
 
@@ -1459,6 +1493,16 @@ Agent: resolve-library-id("basecoat ui") → query-docs("/components/button")
 - ARIA attributes updated via JavaScript when state changes
 - `<dialog>` for modals (handles focus trap natively)
 - Test with voiceover/narrator before shipping
+
+```css
+/* Focus visible ring */
+:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+
+/* Reduced motion guard */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+```
 
 ---
 
