@@ -88,7 +88,7 @@
     });
 
     document.addEventListener('click', (e) => {
-      if (!nav.contains(e.target)) {
+      if (!e.target.closest('nav')) {
         btn.setAttribute('aria-expanded', 'false');
         btn.textContent = '☰';
         links.classList.remove('open');
