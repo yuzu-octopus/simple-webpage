@@ -517,6 +517,222 @@ background: #fff url('img.png') no-repeat center / cover;
 margin-top: 1rem;
 ```
 
+### CSS @function (Custom Functions)
+
+```css
+/* Define a custom function */
+@function --transparent(--color, --alpha: 0.2) {
+  result: oklch(from var(--color) l c h / var(--alpha));
+}
+
+/* Typed parameters */
+@function --inner-radius(--outer, --padding) {
+  result: max(0px, var(--outer) - var(--padding));
+}
+
+/* Use the function */
+.card {
+  background: --transparent(var(--color-primary), 0.1);
+  border: 1px solid --transparent(var(--color-primary), 0.2);
+}
+```
+
+- Parameters start with `--` like custom properties
+- `result` defines the return value (not `return` like JS)
+- Last `result` wins (CSS cascade behavior)
+- Can include media queries inside functions for responsive logic
+- Browser support: limited (Chrome 133+, not production-ready yet)
+
+### CSS Subgrid
+
+```css
+/* Parent grid defines rows */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto 1fr auto;
+  gap: 1rem;
+}
+
+/* Child inherits parent's row tracks */
+.card {
+  grid-row: span 3;
+  grid-template-rows: subgrid;
+}
+
+/* Override gap inside subgrid items */
+.card > * { gap: 0; }
+```
+
+- Children inherit parent grid tracks instead of creating their own
+- Solves the "misaligned buttons in cards" problem
+- Use `span N` instead of hardcoded line numbers for responsive grids
+- Gap inheritance: parent gap applies to subgrid items too
+
+### View Transitions API
+
+```css
+/* Animate between page states */
+::view-transition-old(root) {
+  animation: fade-out 0.3s ease;
+}
+::view-transition-new(root) {
+  animation: fade-in 0.3s ease;
+}
+
+/* Named transitions for specific elements */
+.hero-title {
+  view-transition-name: hero;
+}
+```
+
+```javascript
+// Trigger transition
+document.startViewTransition(() => {
+  updateDOM(); // Your DOM update
+});
+```
+
+- Animates between page states without a full page reload
+- Works with SPA navigation and MPA with `@view-transition`
+
+### sibling-index() and sibling-count()
+
+```css
+/* Style based on element's position among siblings */
+li {
+  opacity: calc(1 - (sibling-index() - 1) * 0.1);
+}
+
+/* Create numbered backgrounds */
+li::before {
+  content: counter(sibling-index);
+}
+
+/* Calculate values based on total siblings */
+.item {
+  width: calc(100% / sibling-count());
+}
+```
+
+- `sibling-index()` — 1-based position among siblings
+- `sibling-count()` — total number of siblings
+- Replaces manual counter/JS solutions for nth-child calculations
+
+### corner-shape
+
+```css
+/* Control corner shape */
+.card {
+  border-radius: 1rem;
+  corner-shape: round; /* default */
+}
+
+/* Superellipse (squircle) corners */
+.card {
+  border-radius: 1rem;
+  corner-shape: superellipse;
+}
+```
+
+- New CSS property for controlling corner curvature
+- `round` (default), `superellipse`, `bevel`
+- Creates iOS-style squircle corners natively
+
+### Position Fallbacks (@position-try)
+
+```css
+/* Define fallback positions */
+@position-try --below-right {
+  inset: unset;
+  top: anchor(bottom);
+  left: anchor(left);
+}
+
+@position-try --below-left {
+  inset: unset;
+  top: anchor(bottom);
+  right: anchor(right);
+}
+
+/* Menu tries positions in order */
+.menu {
+  position: absolute;
+  position-anchor: --my-button;
+  position-area: bottom right;
+  position-try-fallbacks: --below-right, --below-left;
+}
+```
+
+- CSS-only intelligent positioning without JavaScript
+- Browser tries each fallback until one fits in viewport
+- Works with anchor positioning for dropdowns, tooltips, popovers
+
+### Intersection Observer (Scroll Animations)
+
+```javascript
+// Observe elements entering viewport
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    } else {
+      entry.target.classList.remove('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+// Observe all elements
+document.querySelectorAll('.animate').forEach(el => observer.observe(el));
+```
+
+```css
+.animate {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s, transform 0.5s;
+}
+.animate.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+```
+
+- Detects when elements enter/leave viewport
+- Better than scroll events (no performance issues)
+- Use for: scroll animations, lazy loading, infinite scroll
+
+### Scroll-Driven Animations (CSS-only)
+
+```css
+/* Reveal elements on scroll */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+  animation: fade-in linear both;
+  animation-timeline: view();
+  animation-range: entry 0% cover 40%;
+}
+
+/* Progress bar */
+.progress {
+  animation: grow-width linear;
+  animation-timeline: scroll();
+}
+
+@keyframes grow-width {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+```
+
+- `animation-timeline: view()` — tied to element visibility
+- `animation-timeline: scroll()` — tied to page scroll
+- No JavaScript needed for scroll-triggered animations
+
 ---
 
 ## §6 JavaScript Patterns
@@ -644,6 +860,87 @@ form.addEventListener('submit', (e) => {
   }
   // Submit...
 });
+```
+
+### Async/Await with Fetch
+
+```javascript
+// Fetch API with async/await
+async function loadData(url) {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return await response.json();
+  } catch (error) {
+    console.error('Fetch failed:', error);
+    return null;
+  }
+}
+
+// Usage
+const data = await loadData('https://api.example.com/data');
+```
+
+### Promises (Quick Reference)
+
+```javascript
+// Create a promise
+const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+// Chain promises
+fetchUser()
+  .then(user => fetchPosts(user.id))
+  .then(posts => renderPosts(posts))
+  .catch(error => showError(error));
+
+// Parallel execution
+const [users, posts] = await Promise.all([
+  fetch('/api/users'),
+  fetch('/api/posts')
+]);
+```
+
+### Template Literals for Dynamic HTML
+
+```javascript
+// Build HTML from data
+const renderCard = (item) => `
+  <article class="card">
+    <h3>${item.title}</h3>
+    <p>${item.description}</p>
+    <button onclick="edit('${item.id}')">Edit</button>
+  </article>
+`;
+
+container.innerHTML = items.map(renderCard).join('');
+```
+
+### Event Delegation
+
+```javascript
+// Handle events on parent, delegate to children
+document.querySelector('.list').addEventListener('click', (e) => {
+  const item = e.target.closest('.item');
+  if (!item) return;
+
+  if (e.target.matches('.delete-btn')) {
+    item.remove();
+  } else if (e.target.matches('.edit-btn')) {
+    editItem(item.dataset.id);
+  }
+});
+```
+
+### ES Modules
+
+```html
+<script type="module" src="app.js"></script>
+```
+```javascript
+import { saveData, loadData } from './storage.js';
+import { renderItems } from './ui.js';
+
+export function init() { /* ... */ }
 ```
 
 ---

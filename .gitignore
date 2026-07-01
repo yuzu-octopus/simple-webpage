@@ -12,3 +12,9 @@ Thumbs.db
 # Node (if accidentally created)
 node_modules/
 package-lock.json
+
+# Extraction tools and output
+extraction/
+.venv/
+__pycache__/
+*.pyc
