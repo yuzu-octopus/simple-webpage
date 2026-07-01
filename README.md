@@ -4,21 +4,40 @@ A vanilla HTML/CSS/JS reference repository and OpenCode agent skill. No framewor
 
 ## Quick Start
 
-1. Open any file in `cookbook/` in your browser
+1. Open any file in `skills/simple-webpage/cookbook/` in your browser
 2. Copy patterns into your project
-3. Customize with tokens from `tokens/`
+3. Customize with tokens from `skills/simple-webpage/tokens/`
 
 ## Structure
 
-- **`SKILL.md`** — Agent skill definition (reusable in any project)
-- **`cookbook/`** — Standalone HTML pattern demos (layouts, navigation, forms, cards, effects, interactivity, typography)
-- **`tokens/`** — Design token CSS files (base → semantic → components → typography)
-- **`docs/`** — Principles, component specs, guides, tutorials
-- **`templates/`** — Starting point files (blank, starter, with-framework)
+```
+simple-webpage/
+├── AGENTS.md                    # Internal repo instructions
+├── README.md                    # This file
+├── skills/
+│   └── simple-webpage/
+│       ├── SKILL.md             # Agent skill definition (reusable)
+│       ├── cookbook/             # Standalone HTML pattern demos
+│       │   ├── layouts/
+│       │   ├── navigation/
+│       │   ├── forms/
+│       │   ├── cards/
+│       │   ├── effects/
+│       │   ├── interactivity/
+│       │   └── typography/
+│       ├── docs/                # Principles, specs, guides, tutorials
+│       │   ├── principles/
+│       │   ├── specs/
+│       │   ├── guides/
+│       │   └── tutorials/
+│       ├── tokens/              # Design token CSS files
+│       └── templates/           # Starting point files
+└── extraction/                  # Gitignored — video extraction tools
+```
 
 ## For AI Agents
 
-Load `SKILL.md` before generating any webpage. It defines:
+Load `skills/simple-webpage/SKILL.md` before generating any webpage. It defines:
 - Philosophy (ponytail YAGNI ladder)
 - Decision framework (when to use what)
 - HTML/CSS/JS patterns with code examples
