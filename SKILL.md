@@ -1,15 +1,35 @@
 ---
 name: vanilla-webpage
 description: >
-  Build webpages with vanilla HTML/CSS/JS — no frameworks, no build steps.
-  Comprehensive skill covering modern CSS, semantic HTML, and vanilla JS patterns.
+  Build webpages with vanilla HTML/CSS/JS — no frameworks, no build steps, no bloat.
+  Use when the user mentions "vanilla", "simple webpage", "no framework", "no build step",
+  "plain HTML", "CSS only", "no React", "no Tailwind", "no Bootstrap", "static site",
+  "landing page", "portfolio", "personal website", or "webpage".
+  Covers HTML semantics, modern CSS (nesting, @layer, :has(), clamp(), container queries),
+  vanilla JS patterns, design tokens, accessibility, and responsive design.
+  For CSS art or animations specifically, see icon-design. For React/Vue/Svelte, see webapp.
   Inspired by 37signals (Campfire/Writebook), Coding2GO, and the ponytail YAGNI philosophy.
 allowed-tools: Read Write Edit Bash WebSearch WebFetch
 ---
 
 # Vanilla Webpage Skill
 
-A comprehensive reference for building webpages with vanilla HTML, CSS, and JavaScript. No frameworks, no build steps, no bloat. Modern CSS is powerful enough.
+Build webpages with vanilla HTML, CSS, and JavaScript. No frameworks, no build steps, no bloat. Modern CSS is powerful enough. Patterns are reference material, not a menu — use the Ponytail Ladder to decide what you actually need.
+
+## Quick Routing
+
+| I need to... | Go to |
+|---|---|
+| Decide if I need a framework | §1 Philosophy + §2 Decision Framework |
+| Write semantic HTML | §4 HTML Patterns |
+| Style with CSS (custom properties, nesting, @layer) | §5 CSS Patterns |
+| Use modern CSS (clamp, :has, container queries) | §5 CSS Patterns |
+| Add interactivity with JS | §6 JavaScript Patterns |
+| Choose a classless CSS framework | §7 Framework Allowlist |
+| Avoid common mistakes | §8 Anti-Patterns |
+| Check design tokens and spacing | §9 Design Quick Reference |
+| Verify accessibility | §10 Accessibility Minimums |
+| Browse working code examples | §11 Cookbook Reference |
 
 ---
 
@@ -461,17 +481,6 @@ textarea { resize: vertical; }
 textarea { resize: none; }
 ```
 
-### Scroll-Driven Animations
-
-```css
-@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
-.animate-on-scroll {
-  animation: fade-in linear both;
-  animation-timeline: view();
-  animation-range: entry 0% cover 40%;
-}
-```
-
 ### @starting-style for Entry Animations
 
 ```css
@@ -667,6 +676,7 @@ li::before {
 - CSS-only intelligent positioning without JavaScript
 - Browser tries each fallback until one fits in viewport
 - Works with anchor positioning for dropdowns, tooltips, popovers
+- Chrome 129+, limited Firefox/Safari support
 
 ### Intersection Observer (Scroll Animations)
 
@@ -732,6 +742,50 @@ document.querySelectorAll('.animate').forEach(el => observer.observe(el));
 - `animation-timeline: view()` — tied to element visibility
 - `animation-timeline: scroll()` — tied to page scroll
 - No JavaScript needed for scroll-triggered animations
+
+### color-mix()
+
+```css
+/* Tint/shade without manual color math */
+.btn-hover { background: color-mix(in oklch, var(--primary), black 15%); }
+.subtle { background: color-mix(in oklch, var(--bg), var(--text) 5%); }
+.border { border-color: color-mix(in oklch, var(--primary), transparent 50%); }
+```
+
+### @scope (Scoped Styling)
+
+```css
+/* Style only within this component's subtree */
+@scope (.card) to (.card-footer) {
+  p { color: var(--text); }
+  a { color: var(--primary); }
+}
+```
+
+- Prevents style leakage to siblings or parents
+- The `to` clause limits scope to a boundary element
+- Chrome 118+, Firefox 128+
+
+### <template> Element
+
+```html
+<template id="card-template">
+  <article class="card">
+    <h3></h3>
+    <p></p>
+  </article>
+</template>
+```
+
+```javascript
+const template = document.getElementById('card-template');
+const clone = template.content.cloneNode(true);
+clone.querySelector('h3').textContent = item.title;
+container.appendChild(clone);
+```
+
+- Efficient DOM cloning without re-parsing HTML
+- Content not rendered until added to DOM
 
 ---
 
@@ -822,8 +876,8 @@ const renderItem = (item) => `
   <article class="item" data-id="${item.id}">
     <h3>${item.title}</h3>
     <p>${item.content}</p>
-    <button onclick="editItem('${item.id}')">Edit</button>
-    <button onclick="deleteItem('${item.id}')">Delete</button>
+    <button class="edit-btn">Edit</button>
+    <button class="delete-btn">Delete</button>
   </article>
 `;
 
@@ -900,21 +954,6 @@ const [users, posts] = await Promise.all([
 ]);
 ```
 
-### Template Literals for Dynamic HTML
-
-```javascript
-// Build HTML from data
-const renderCard = (item) => `
-  <article class="card">
-    <h3>${item.title}</h3>
-    <p>${item.description}</p>
-    <button onclick="edit('${item.id}')">Edit</button>
-  </article>
-`;
-
-container.innerHTML = items.map(renderCard).join('');
-```
-
 ### Event Delegation
 
 ```javascript
@@ -931,16 +970,42 @@ document.querySelector('.list').addEventListener('click', (e) => {
 });
 ```
 
-### ES Modules
+### AbortController (Cancel Fetches)
 
-```html
-<script type="module" src="app.js"></script>
-```
 ```javascript
-import { saveData, loadData } from './storage.js';
-import { renderItems } from './ui.js';
+const controller = new AbortController();
 
-export function init() { /* ... */ }
+fetch('/api/data', { signal: controller.signal })
+  .then(res => res.json())
+  .catch(err => {
+    if (err.name === 'AbortError') console.log('Cancelled');
+  });
+
+// Cancel after 5 seconds
+setTimeout(() => controller.abort(), 5000);
+```
+
+### structuredClone() (Deep Clone)
+
+```javascript
+// Deep clone objects (replaces JSON roundtrip)
+const original = { nested: { value: 42 } };
+const clone = structuredClone(original);
+
+// Works with Dates, Maps, Sets, TypedArrays
+const complex = { date: new Date(), map: new Map([['key', 'value']]) };
+const deepClone = structuredClone(complex);
+```
+
+### crypto.randomUUID()
+
+```javascript
+// Generate unique IDs without libraries
+const id = crypto.randomUUID();
+// "3b241101-e2bb-4d7a-8702-9e0e0a3f0f87"
+
+// Useful for keys in dynamic lists
+const item = { id: crypto.randomUUID(), text: 'New item' };
 ```
 
 ---
@@ -1002,17 +1067,25 @@ export function init() { /* ... */ }
 
 ## §8 Anti-Patterns (What NOT to Do)
 
-- No `npm init` / `package.json` for a static HTML page
-- No Tailwind CSS for simple webpages (utility-first adds bloat for no benefit on small projects)
-- No Bootstrap (too heavy, not semantic)
-- No CSS preprocessor (Sass/PostCSS) — modern CSS has nesting
-- No build tool (Webpack/Vite/Parcel) unless there's an actual need
-- No premature file splitting
-- No component abstraction for a single instance
-- No TypeScript unless the project genuinely benefits from it
-- No `src/` / `dist/` folder setup "for later"
-- No utility-first CSS for a single-page site
-- No BEM naming for a single-page site (`.card-title` is fine, `.card__title--large` is over-engineering)
+| Don't | Instead |
+|-------|---------|
+| `npm init` / `package.json` for static HTML | Just write HTML files |
+| Tailwind CSS for simple webpages | Plain CSS or a classless framework (§7) |
+| Bootstrap | Semantic HTML + custom CSS (§4, §5) |
+| CSS preprocessor (Sass/PostCSS) | Native CSS nesting (§5) |
+| Build tool (Webpack/Vite/Parcel) | No build step — files served directly |
+| Premature file splitting | Keep files until they exceed ~400 lines |
+| Component abstraction for one instance | Only abstract at 5+ repeated instances |
+| TypeScript for simple pages | Plain JavaScript (§6) |
+| `src/` / `dist/` folder "for later" | Root-level files until there's a need |
+| Utility-first CSS for single-page sites | Semantic CSS with custom properties |
+| BEM naming (`.card__title--large`) | Simple selectors (`.card-title`) |
+| `<script>` in `<head>` without `defer` | `<script defer>` or place before `</body>` |
+| `document.write()` | DOM manipulation methods (§6) |
+| `var` in JS | `const` / `let` only |
+| `setTimeout` for animations | CSS transitions/animations or `requestAnimationFrame` |
+| `innerHTML` with user input | `textContent` or sanitize with DOMPurify |
+| onclick in template literals | Event delegation with `data-id` attributes (§6) |
 
 ---
 
@@ -1084,6 +1157,9 @@ option::checkmark {
   color: green;
 }
 ```
+
+- Chrome 134+, limited Firefox/Safari support
+- Falls back to native select styling in unsupported browsers
 
 ### display: contents
 
@@ -1212,19 +1288,6 @@ const updated = { ...product, price: product.price * 0.5 };
 
 // Array copy
 const newArr = [...oldArr];
-```
-
-### localStorage for Preferences
-
-```javascript
-// Save
-localStorage.setItem('theme', 'dark');
-
-// Load (returns string or null)
-const saved = localStorage.getItem('theme');
-
-// Remove
-localStorage.removeItem('theme');
 ```
 
 ---
