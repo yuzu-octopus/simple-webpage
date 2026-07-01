@@ -1317,12 +1317,12 @@ document.addEventListener('DOMContentLoaded', () => {
 ## §7 CSS Framework Allowlist
 
 **Eligibility criteria** (all must pass):
-- Loaded via single `<link>` tag from CDN
-- No JavaScript dependency
-- No build step / no Node/npm required
-- Semantic HTML-first (minimal or zero class names)
+- Loaded via single `<link>` tag from CDN (or minimal setup)
+- No JavaScript dependency (or minimal vanilla JS only)
+- No build step / no Node/npm required for basic usage
+- Semantic HTML-first (minimal or zero class names preferred)
 - MIT or permissive license
-- < ~60KB gzipped
+- < ~60KB gzipped (exceptions for comprehensive component libraries)
 - Works in modern evergreen browsers
 
 ### Category A: Classless (zero classes, pure semantic HTML)
@@ -1342,11 +1342,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 ### Category B: shadcn-aesthetic (no React needed)
 
-| Framework | Size | Best for |
-|-----------|------|----------|
-| slick-css | ~5.7KB | shadcn style via attribute selectors; tiny |
-| shadcn-classless | ~15KB | Zero-class, dialog/nav/accordion support |
-| Daft CSS | ~55KB | Closest to shadcn visuals; zero JS; modern CSS only |
+| Framework | Size | Best for | Notes |
+|-----------|------|----------|-------|
+| **Basecoat UI** | ~19KB JS | **Preferred** — shadcn v4 port, CDN, minimal vanilla JS | User's top pick. Tailwind CSS v4 + plain HTML. Works via CDN without build. |
+| slick-css | ~5.7KB | shadcn style via attribute selectors; tiny | Zero classes, attribute-based |
+| shadcn-classless | ~15KB | Zero-class, dialog/nav/accordion support | Pure CSS |
+| Daft CSS | ~55KB | Closest to shadcn visuals; zero JS; modern CSS only | Heaviest but most complete |
 
 ### Category C: Minimal-class component frameworks
 
@@ -1355,8 +1356,16 @@ document.addEventListener('DOMContentLoaded', () => {
 | µCSS | ~19KB | 20+ themes, button/form/nav components |
 | Aesthetium | ~12KB | Attribute-based variants; clean OpenAI-style |
 | Spectre.css | ~10KB | Lightweight component framework |
+| UIkit | ~12KB | Modular, responsive, good docs |
 
-### Category D: Effect libraries (add-ons)
+### Category D: Tailwind-based (CDN-loadable, no build step)
+
+| Framework | Size | Best for | Notes |
+|-----------|------|----------|-------|
+| **Flowbite** | ~15KB JS | Interactive components via data attributes | Requires Tailwind CSS. CDN available. MIT. |
+| DaisyUI | ~48KB CSS | Most Tailwind components | Requires Tailwind. CDN via Play or direct. |
+
+### Category E: Effect libraries (add-ons)
 
 | Framework | Size | Best for |
 |-----------|------|----------|
@@ -1366,6 +1375,39 @@ document.addEventListener('DOMContentLoaded', () => {
 ### Allowed JS Enhancement
 
 - HTMX (~14KB) from CDN — for AJAX, polling, form validation, search
+
+### Framework Selection Guide
+
+```
+Need a quick polished page with zero CSS?
+→ Pico CSS (classless) or Basecoat UI (shadcn aesthetic)
+
+Need interactive components (modals, dropdowns, toasts)?
+→ Basecoat UI or Flowbite (both have JS for interactivity)
+
+Building a content-heavy site (blog, docs)?
+→ Pico CSS or Simple.css (classless, semantic)
+
+Building a dashboard or app UI?
+→ Basecoat UI or UIkit (component-rich)
+
+Want shadcn aesthetics without React?
+→ Basecoat UI (preferred) or slick-css (minimal)
+```
+
+### Documentation Access for Agents
+
+When an agent needs framework-specific documentation:
+
+1. **Context7 MCP** (preferred) — Use `resolve-library-id` + `query-docs` tools to fetch documentation on demand
+2. **Direct fetch** — Fetch the framework's documentation website directly via `webfetch`
+3. **CDN links** — Reference the CDN URL in code examples for immediate usage
+
+Example Context7 workflow:
+```
+User: "How do I use Basecoat UI's button component?"
+Agent: resolve-library-id("basecoat ui") → query-docs("/components/button")
+```
 
 ---
 

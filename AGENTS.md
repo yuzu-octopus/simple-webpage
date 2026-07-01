@@ -16,3 +16,8 @@ python3 -m http.server 8000
 - Cookbook patterns in `cookbook/` — browse before writing new CSS.
 - Design tokens in `tokens/` — import via `<link>`.
 - Prefer single-file HTML for simple pages. Split at ~400 lines.
+
+## Documentation access
+- Use Context7 MCP (`resolve-library-id` + `query-docs`) for framework docs when available
+- Fallback: fetch documentation directly via `webfetch`
+- Preferred frameworks: Basecoat UI (shadcn without React), Pico CSS (classless)
