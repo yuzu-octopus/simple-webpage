@@ -123,10 +123,48 @@ No → OK, consider a lightweight component approach
 ### ARIA Attributes
 
 ```html
-<button aria-expanded="false" aria-label="Toggle menu">☰</button>
-<nav aria-label="Main navigation">
+<!-- Semantic HTML first — only add ARIA when HTML alone isn't enough -->
+<button aria-expanded="false" aria-controls="menu" aria-label="Toggle menu">☰</button>
+<nav aria-label="Main navigation" aria-current="page">
   <!-- nav items -->
 </nav>
+
+<!-- aria-labelledby references an existing element's text content -->
+<h2 id="section-title">Settings</h2>
+<div aria-labelledby="section-title">...</div>
+
+<!-- Decorative images: alt="" + aria-hidden="true" -->
+<img src="icon.svg" alt="" aria-hidden="true">
+<img src="photo.jpg" alt="Description of image"> <!-- Meaningful images need alt text -->
+```
+
+**Rules:** Use semantic HTML first. `role` is rarely needed (buttons, links, navigation have implicit roles). Only add ARIA when native HTML semantics don't convey the meaning.
+
+### HTML Tables
+
+```html
+<table>
+  <thead>
+    <tr><th>Name</th><th>Email</th><th>Role</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Alex</td><td>alex@example.com</td><td>Developer</td></tr>
+    <tr><td>Jordan</td><td>jordan@example.com</td><td>Designer</td></tr>
+  </tbody>
+  <tfoot>
+    <tr><td colspan="3">2 users total</td></tr>
+  </tfoot>
+</table>
+```
+
+```css
+/* Responsive table: stack on mobile */
+@media (max-width: 600px) {
+  thead { display: none; }
+  tr { display: block; margin-bottom: 1rem; }
+  td { display: block; text-align: right; }
+  td::before { content: attr(data-label); float: left; font-weight: bold; }
+}
 ```
 
 ### Popover API (no JS needed for open/close)
@@ -135,6 +173,26 @@ No → OK, consider a lightweight component approach
 <button popovertarget="my-popover">Open</button>
 <div popover id="my-popover">Popover content</div>
 ```
+
+### Invoker Commands (commandfor)
+
+```html
+<!-- Open dialog without JS -->
+<button commandfor="my-dialog" command="showModal">Open Dialog</button>
+<dialog id="my-dialog">Content</button>
+
+<!-- Close dialog -->
+<button commandfor="my-dialog" command="close">Close</button>
+
+<!-- Toggle popover -->
+<button commandfor="my-menu" command="togglepopover">Menu</button>
+<div popover id="my-menu">Menu items</div>
+```
+
+- Declarative open/close for `<dialog>` and `<popover>` without JavaScript
+- `command="showModal"` / `command="close"` for dialogs
+- `command="togglepopover"` / `command="showpopover"` / `command="hidepopover"` for popovers
+- Chrome 133+, limited browser support
 
 ### Data Attributes for Dynamic Content
 
@@ -163,6 +221,12 @@ a::before { content: attr(data-name); }
   --radius: 0.5rem;
   --font-body: system-ui, -apple-system, sans-serif;
 }
+
+/* Fallback syntax: var(--prop, fallback) */
+.btn { background: var(--color-primary, blue); }
+
+/* Scoped custom properties (override on specific elements) */
+.card { --radius: 1rem; } /* only this card uses 1rem */
 ```
 
 ### OKLCH Color System
@@ -207,6 +271,28 @@ a::before { content: attr(data-name); }
   border-color: currentColor;
   background: oklch(from currentColor l c h / 0.1);
 }
+```
+
+### CSS Position Reference
+
+```css
+/* static — default, no offset */
+.static { position: static; }
+
+/* relative — offset from original position, space preserved */
+.relative { position: relative; top: 10px; left: 20px; }
+
+/* absolute — removed from flow, offset from nearest positioned ancestor */
+.absolute { position: absolute; top: 0; right: 0; }
+
+/* fixed — removed from flow, offset from viewport, stays on scroll */
+.fixed { position: fixed; bottom: 20px; right: 20px; }
+
+/* sticky — hybrid, sticks at threshold */
+.sticky { position: sticky; top: 0; }
+
+/* Stacking context: z-index only works on positioned elements */
+.layer { position: relative; z-index: 10; }
 ```
 
 ### CSS Nesting (no Sass needed)
@@ -421,6 +507,62 @@ input:not([type="submit"]) { border: 1px solid #ccc; }
 }
 ```
 
+### Flexbox Properties Reference
+
+```css
+.container {
+  display: flex;
+
+  /* Main axis direction */
+  flex-direction: row | row-reverse | column | column-reverse;
+
+  /* Main axis distribution */
+  justify-content: flex-start | flex-end | center | space-between | space-around | space-evenly;
+
+  /* Cross axis alignment */
+  align-items: flex-start | flex-end | center | stretch | baseline;
+
+  /* Multi-line wrapping */
+  flex-wrap: nowrap | wrap | wrap-reverse;
+
+  /* Cross axis alignment for multi-line */
+  align-content: flex-start | flex-end | center | space-between | space-around;
+
+  /* Gap between items */
+  gap: 1rem;
+}
+
+.item {
+  /* Shorthand: flex: grow shrink basis */
+  flex: 1 1 auto;    /* grow equally, shrink equally, base size from content */
+  flex: 0 0 200px;   /* no grow, no shrink, fixed 200px */
+  flex: 1;           /* shorthand for flex: 1 1 0% */
+
+  /* Override alignment for individual items */
+  align-self: flex-start | flex-end | center | stretch;
+
+  /* Reorder items (visual only, not DOM) */
+  order: -1 | 0 | 1;
+}
+```
+
+**When to use Grid vs Flexbox:** Grid for 2D layouts (rows AND columns). Flexbox for 1D layouts (row OR column). Grid: parent defines layout, children follow. Flexbox: children determine layout.
+
+### display: inline-flex
+
+```css
+/* Flex container that flows inline with text */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  background: #eee;
+  border-radius: 4px;
+}
+/* vs display: flex which creates a block-level container */
+```
+
 ### Flexbox Patterns
 
 ```css
@@ -481,6 +623,57 @@ textarea { resize: vertical; }
 textarea { resize: none; }
 ```
 
+### Cubic Bezier Easing
+
+```css
+/* Custom transition timing */
+.btn { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); } /* Material ease */
+.btn { transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); } /* Ease out */
+.btn { transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55); } /* Bounce */
+```
+
+### Border-Image for Gradient Borders
+
+```css
+.gradient-border {
+  border: 3px solid;
+  border-image: linear-gradient(135deg, #667eea, #764ba2) 1;
+  /* The '1' slice value is critical — without it, corners break */
+}
+```
+
+### Animation & Transition Reference
+
+```css
+/* Animation shorthand */
+.element {
+  animation: name duration timing-function delay iteration-count direction fill-mode;
+  animation: fade-in 0.3s ease 0s 1 normal forwards;
+}
+
+/* Individual animation properties */
+animation-name: fade-in;
+animation-duration: 0.3s;
+animation-timing-function: ease | linear | ease-in | ease-out | cubic-bezier(x, y, z, w);
+animation-delay: 0s;
+animation-iteration-count: 1 | infinite;
+animation-direction: normal | reverse | alternate | alternate-reverse;
+animation-fill-mode: none | forwards | backwards | both;
+
+/* Transition shorthand */
+.element {
+  transition: property duration timing-function delay;
+  transition: all 0.3s ease 0s;
+  transition: background 0.2s ease, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Individual transition properties */
+transition-property: all | background | transform | opacity;
+transition-duration: 0.3s;
+transition-timing-function: ease;
+transition-delay: 0s;
+```
+
 ### @starting-style for Entry Animations
 
 ```css
@@ -504,6 +697,49 @@ body {
   background: light-dark(#ffffff, #121212);
   color: light-dark(#1a1a1a, #e0e0e0);
 }
+```
+
+### aspect-ratio
+
+```css
+/* Consistent proportions without padding hacks */
+.video { aspect-ratio: 16 / 9; }
+.square { aspect-ratio: 1; }
+.portrait { aspect-ratio: 3 / 4; }
+
+/* Responsive: maintain ratio while filling container */
+.card img { aspect-ratio: 4 / 3; width: 100%; object-fit: cover; }
+```
+
+### min() and max() Functions
+
+```css
+/* Responsive width: never exceed 800px, shrink on small screens */
+.container { width: min(800px, 90%); }
+
+/* Minimum size: never go below 250px */
+.sidebar { width: max(250px, 25%); }
+
+/* Responsive padding */
+.section { padding: min(5rem, 8vw); }
+```
+
+### Columns (Masonry Layout)
+
+```css
+/* One-line masonry — no grid or JS needed */
+.gallery {
+  columns: 3;
+  column-gap: 1rem;
+}
+.gallery-item {
+  break-inside: avoid;
+  margin-bottom: 1rem;
+}
+
+/* Responsive masonry */
+@media (max-width: 900px) { .gallery { columns: 2; } }
+@media (max-width: 600px) { .gallery { columns: 1; } }
 ```
 
 ### Container Queries
@@ -1006,6 +1242,74 @@ const id = crypto.randomUUID();
 
 // Useful for keys in dynamic lists
 const item = { id: crypto.randomUUID(), text: 'New item' };
+```
+
+### Array Iteration Methods
+
+```javascript
+// map — transform each element, return new array
+const names = users.map(u => u.name);
+
+// filter — keep elements that pass a test
+const adults = users.filter(u => u.age >= 18);
+
+// reduce — accumulate into a single value
+const total = prices.reduce((sum, p) => sum + p, 0);
+
+// find — get first matching element
+const admin = users.find(u => u.role === 'admin');
+
+// findIndex — get index of first match
+const idx = users.findIndex(u => u.id === targetId);
+
+// forEach — run code for each element (no return value)
+users.forEach(u => console.log(u.name));
+
+// Chaining
+const result = users
+  .filter(u => u.active)
+  .map(u => u.name)
+  .join(', ');
+```
+
+### Destructuring
+
+```javascript
+// Object destructuring
+const { name, age, email = 'N/A' } = user;
+
+// Array destructuring
+const [first, second, ...rest] = [1, 2, 3, 4, 5];
+// first=1, second=2, rest=[3,4,5]
+
+// In function parameters
+function greet({ name, greeting = 'Hello' }) {
+  return `${greeting}, ${name}`;
+}
+greet({ name: 'Alex' }); // "Hello, Alex"
+```
+
+### Optional Chaining & Nullish Coalescing
+
+```javascript
+// Optional chaining (?.) — safe property access
+const city = user?.address?.city; // undefined if any part is null/undefined
+const first = arr?.[0]; // undefined if arr is null/undefined
+const result = obj?.method?.(); // undefined if method doesn't exist
+
+// Nullish coalescing (??) — fallback only for null/undefined
+const name = user.name ?? 'Anonymous';
+// vs || which also falls back for 0, '', false
+```
+
+### DOMContentLoaded
+
+```javascript
+// Run code after HTML is parsed, before images/styles
+document.addEventListener('DOMContentLoaded', () => {
+  // Safe to query DOM elements here
+  const btn = document.querySelector('#my-btn');
+});
 ```
 
 ---
