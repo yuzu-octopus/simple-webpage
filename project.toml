@@ -2,23 +2,23 @@
 name = "simple-webpage"
 tagline = "Vanilla HTML/CSS/JS — No frameworks, no build steps, no bloat"
 subtitle = "A comprehensive reference repository and OpenCode agent skill for building modern webpages with vanilla HTML, CSS, and JavaScript."
-description = "1,700+ lines of patterns, 40+ cookbook demos, modern CSS techniques, and a reusable SKILL.md for AI agents. Inspired by 37signals and Coding2GO."
+description = "1,796-line SKILL.md with 42 cookbook patterns, design tokens, and 250+ CSS techniques. Build webpages with vanilla HTML/CSS/JS — no frameworks, no build steps."
 page_url = "https://yuzu-octopus.github.io/simple-webpage/"
 github_url = "https://github.com/yuzu-octopus/simple-webpage"
 quickstart_url = "https://github.com/yuzu-octopus/simple-webpage#quick-start"
-logo_svg = """<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+logo_svg = """<svg viewBox="8 8 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
 <polyline points="18 16 10 32 18 48" stroke="#bd93f9" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 <polyline points="46 16 54 32 46 48" stroke="#bd93f9" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 <line x1="38" y1="48" x2="26" y2="16" stroke="#50fa7b" stroke-width="3" stroke-linecap="round"/>
 </svg>"""
-favicon_data = """<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+favicon_data = """<svg viewBox="4 4 24 24" xmlns="http://www.w3.org/2000/svg">
 <polyline points="9 8 4 16 9 24" stroke="#bd93f9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
 <polyline points="23 8 28 16 23 24" stroke="#bd93f9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
 <line x1="19" y1="24" x2="13" y2="8" stroke="#50fa7b" stroke-width="2" stroke-linecap="round"/>
 </svg>"""
 
 [brand]
-tagline = "Built by yuzu-octopus"
+tagline = "SKILL.md · HTML · CSS · JS · Design Tokens"
 
 [[sections]]
 id = "about"
@@ -58,30 +58,30 @@ title = "Modern CSS"
 body = "OKLCH colors, nesting, @layer, :has(), clamp(), container queries, scroll-snap, anchor positioning, View Transitions."
 
 [[sections]]
-id = "techniques"
-title = "Techniques Covered"
+id = "tech-stack"
+title = "Tech Stack"
 icon = "layers"
 type = "stack"
 
 [[sections.items]]
 name = "HTML"
-body = "Semantic elements, dialog, details, popover, ARIA, tables, forms"
+description = "Semantic elements, dialog, details, popover, ARIA"
 
 [[sections.items]]
 name = "CSS"
-body = "Nesting, @layer, :has, clamp, container queries, OKLCH, subgrid"
+description = "Nesting, @layer, :has, clamp, container queries, OKLCH"
 
 [[sections.items]]
-name = "JS"
-body = "DOM, localStorage, async/await, event delegation, ES modules"
+name = "JavaScript"
+description = "DOM, localStorage, async/await, event delegation"
 
 [[sections.items]]
-name = "Effects"
-body = "Glassmorphism, neumorphism, gradient text, scroll-snap, animations"
+name = "Design Tokens"
+description = "Base, semantic, component, and typography layers"
 
 [[sections.items]]
-name = "Accessibility"
-body = "Focus-visible, prefers-reduced-motion, ARIA, semantic HTML"
+name = "MCP"
+description = "Context7, Exa, Playwright integration"
 
 [[sections]]
 id = "getting-started"
