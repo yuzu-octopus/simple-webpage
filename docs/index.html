@@ -4,18 +4,18 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>simple-webpage | Vanilla HTML/CSS/JS — No frameworks, no build steps, no bloat</title>
-  <meta name="description" content="A comprehensive reference repository and OpenCode agent skill for building webpages with vanilla HTML, CSS, and JavaScript. 1,700+ lines of patterns, 30+ cookbook demos, modern CSS techniques, and a reusable SKILL.md for AI agents.">
+  <meta name="description" content="1,700+ lines of patterns, 40+ cookbook demos, modern CSS techniques, and a reusable SKILL.md for AI agents. Inspired by 37signals and Coding2GO.">
   <meta name="theme-color" content="#282a36">
   <meta property="og:type" content="website">
   <meta property="og:title" content="simple-webpage | Vanilla HTML/CSS/JS — No frameworks, no build steps, no bloat">
-  <meta property="og:description" content="A comprehensive reference repository and OpenCode agent skill for building webpages with vanilla HTML, CSS, and JavaScript. 1,700+ lines of patterns, 30+ cookbook demos, modern CSS techniques, and a reusable SKILL.md for AI agents.">
+  <meta property="og:description" content="1,700+ lines of patterns, 40+ cookbook demos, modern CSS techniques, and a reusable SKILL.md for AI agents. Inspired by 37signals and Coding2GO.">
   <meta property="og:url" content="https://yuzu-octopus.github.io/simple-webpage/">
   
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="simple-webpage | Vanilla HTML/CSS/JS — No frameworks, no build steps, no bloat">
-  <meta name="twitter:description" content="A comprehensive reference repository and OpenCode agent skill for building webpages with vanilla HTML, CSS, and JavaScript. 1,700+ lines of patterns, 30+ cookbook demos, modern CSS techniques, and a reusable SKILL.md for AI agents.">
+  <meta name="twitter:description" content="1,700+ lines of patterns, 40+ cookbook demos, modern CSS techniques, and a reusable SKILL.md for AI agents. Inspired by 37signals and Coding2GO.">
   
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%2032%2032%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%0A%3Crect%20x%3D%222%22%20y%3D%224%22%20width%3D%2228%22%20height%3D%2224%22%20rx%3D%222%22%20fill%3D%22%23282a36%22%20stroke%3D%22%23bd93f9%22%20stroke-width%3D%221.5%22/%3E%0A%3Crect%20x%3D%222%22%20y%3D%224%22%20width%3D%2228%22%20height%3D%226%22%20fill%3D%22%2344475a%22/%3E%0A%3Ccircle%20cx%3D%226%22%20cy%3D%227%22%20r%3D%221%22%20fill%3D%22%23ff5555%22/%3E%0A%3Ccircle%20cx%3D%229%22%20cy%3D%227%22%20r%3D%221%22%20fill%3D%22%23f1fa8c%22/%3E%0A%3Ccircle%20cx%3D%2212%22%20cy%3D%227%22%20r%3D%221%22%20fill%3D%22%2350fa7b%22/%3E%0A%3Ctext%20x%3D%2216%22%20y%3D%2222%22%20text-anchor%3D%22middle%22%20fill%3D%22%23bd93f9%22%20font-family%3D%22monospace%22%20font-size%3D%228%22%20font-weight%3D%22bold%22%3E%26lt%3B/%26gt%3B%3C/text%3E%0A%3C/svg%3E">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%2032%2032%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%0A%3Cpolyline%20points%3D%229%208%204%2016%209%2024%22%20stroke%3D%22%23bd93f9%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%0A%3Cpolyline%20points%3D%2223%208%2028%2016%2023%2024%22%20stroke%3D%22%23bd93f9%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%0A%3Cline%20x1%3D%2219%22%20y1%3D%2224%22%20x2%3D%2213%22%20y2%3D%228%22%20stroke%3D%22%2350fa7b%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22/%3E%0A%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -470,12 +470,9 @@
 <aside class="sidebar" id="sidebar">
   <div class="sidebar-brand">
     <div class="logo"><svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect x="4" y="8" width="56" height="48" rx="4" stroke="#bd93f9" stroke-width="2"/>
-<rect x="4" y="8" width="56" height="12" fill="#44475a"/>
-<circle cx="12" cy="14" r="2" fill="#ff5555"/>
-<circle cx="18" cy="14" r="2" fill="#f1fa8c"/>
-<circle cx="24" cy="14" r="2" fill="#50fa7b"/>
-<text x="32" y="44" text-anchor="middle" fill="#bd93f9" font-family="monospace" font-size="14" font-weight="bold">&lt;/&gt;</text>
+<polyline points="18 16 10 32 18 48" stroke="#bd93f9" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="46 16 54 32 46 48" stroke="#bd93f9" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<line x1="38" y1="48" x2="26" y2="16" stroke="#50fa7b" stroke-width="3" stroke-linecap="round"/>
 </svg></div>
     <div class="name">simple-webpage</div>
     <div class="tagline">Built by yuzu-octopus</div>
@@ -513,11 +510,11 @@
 
 </span> Getting Started</a></li>
       
-      <li><a href="#stack"><span class="icon">
+      <li><a href="#docs"><span class="icon">
 
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="5" y="5" width="14" height="14" rx="2"/><rect x="8" y="8" width="8" height="8" rx="1"/><path d="M5 10H3"/><path d="M5 14H3"/><path d="M21 10h-2"/><path d="M21 14h-2"/><path d="M10 3v2"/><path d="M14 3v2"/><path d="M10 19v2"/><path d="M14 19v2"/></svg>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg>
 
-</span> Tech Stack</a></li>
+</span> Documentation</a></li>
       
     </ul>
   </nav>
@@ -535,7 +532,7 @@
     <div class="container">
       <h1>simple-webpage</h1>
       <p class="tagline">Vanilla HTML/CSS/JS — No frameworks, no build steps, no bloat</p>
-      <p class="subtitle"></p>
+      <p class="subtitle">A comprehensive reference repository and OpenCode agent skill for building modern webpages with vanilla HTML, CSS, and JavaScript.</p>
       <div class="cta">
         <a href="https://github.com/yuzu-octopus/simple-webpage" class="btn btn-primary">View on GitHub</a>
         
@@ -551,9 +548,7 @@
       <h2>About</h2>
 
       
-      <p>simple-webpage is a vanilla HTML/CSS/JS reference repository and reusable OpenCode agent skill. No frameworks, no build steps, no bloat.</p>
-<p>Inspired by 37signals (Campfire/Writebook), Coding2GO, and the ponytail YAGNI philosophy — modern CSS is powerful enough that most projects don't need React, Tailwind, or any build tool.</p>
-
+      <p>simple-webpage is a vanilla HTML/CSS/JS reference repository and reusable OpenCode agent skill. No frameworks, no build steps, no bloat.</p><p>Inspired by 37signals (Campfire/Writebook), Coding2GO, and the ponytail YAGNI philosophy.</p>
 
       
     </div>
@@ -567,33 +562,33 @@
       <div class="grid">
         
         <div class="card">
-          <h3>SKILL.md (1,700+ lines)</h3>
+          <h3>SKILL.md (1,800+ lines)</h3>
           <p>Comprehensive agent skill with philosophy, decision framework, HTML/CSS/JS patterns, framework allowlist, anti-patterns, and accessibility minimums.</p>
         </div>
         
         <div class="card">
-          <h3>Cookbook (30+ patterns)</h3>
-          <p>Standalone HTML demos for layouts, navigation, forms, cards, effects, interactivity, and typography. Open in browser, copy into your project.</p>
+          <h3>Cookbook (40+ patterns)</h3>
+          <p>Standalone HTML demos for layouts, navigation, forms, cards, effects, interactivity, and typography.</p>
         </div>
         
         <div class="card">
           <h3>Design Tokens</h3>
-          <p>4-layer token system: base (raw values) → semantic (meaningful names) → components (UI-specific) → typography (fluid scale).</p>
+          <p>4-layer token system: base, semantic, components, typography. Import via a single link tag.</p>
         </div>
         
         <div class="card">
           <h3>Documentation</h3>
-          <p>Principles, component specs, guides (modern CSS, accessibility, dark mode, responsive, animations), and step-by-step tutorials.</p>
+          <p>Principles, component specs, guides (modern CSS, accessibility, dark mode, responsive, animations), and tutorials.</p>
         </div>
         
         <div class="card">
           <h3>Framework Allowlist</h3>
-          <p>18+ curated CSS frameworks across 5 categories: classless, shadcn-aesthetic, minimal-class, Tailwind-based, and effect libraries.</p>
+          <p>18+ curated CSS frameworks: classless, shadcn-aesthetic, minimal-class, Tailwind-based, and effect libraries.</p>
         </div>
         
         <div class="card">
           <h3>Modern CSS</h3>
-          <p>OKLCH colors, nesting, @layer, :has(), clamp(), container queries, scroll-snap, anchor positioning, View Transitions, and more.</p>
+          <p>OKLCH colors, nesting, @layer, :has(), clamp(), container queries, scroll-snap, anchor positioning, View Transitions.</p>
         </div>
         
       </div>
@@ -646,20 +641,32 @@
     </div>
   </section>
   
-  <section id="stack">
+  <section id="docs">
     <div class="container">
-      <h2>Tech Stack</h2>
+      <h2>Documentation</h2>
 
       
-      <div class="stack">
+      <div class="grid">
         
-        <span class="badge"><strong>HTML5</strong> &mdash; </span>
+        <div class="card">
+          <h3>Principles</h3>
+          <p>Design philosophy, decision framework, why-no-frameworks rationale.</p>
+        </div>
         
-        <span class="badge"><strong>CSS3</strong> &mdash; </span>
+        <div class="card">
+          <h3>Component Specs</h3>
+          <p>Typography, colors, spacing, buttons, forms, cards, navigation, modals, layout, effects, interactivity.</p>
+        </div>
         
-        <span class="badge"><strong>Vanilla JS</strong> &mdash; </span>
+        <div class="card">
+          <h3>Guides</h3>
+          <p>Getting started, modern CSS, accessibility, dark mode, responsive, animations, colors, framework usage.</p>
+        </div>
         
-        <span class="badge"><strong>Zero Dependencies</strong> &mdash; </span>
+        <div class="card">
+          <h3>Tutorials</h3>
+          <p>Step-by-step: first page, layout masterclass, interactivity, full project.</p>
+        </div>
         
       </div>
 
