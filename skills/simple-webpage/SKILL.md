@@ -4,7 +4,7 @@ description: >
   Build webpages with vanilla HTML/CSS/JS — no frameworks, no build steps.
   Covers modern CSS (nesting, @layer, :has, clamp, container queries),
   vanilla JS, design tokens, accessibility, responsive design.
-allowed-tools: Read Write Edit Bash WebSearch WebFetch
+allowed-tools: Read Write Edit Bash WebSearch WebFetch mcp__context7__resolve-library-id mcp__context7__query-docs mcp__exa__web_search_exa mcp__exa__web_fetch_exa mcp__playwright__browser_navigate mcp__playwright__browser_snapshot
 ---
 
 # Vanilla Webpage Skill
@@ -25,6 +25,55 @@ Build webpages with vanilla HTML, CSS, and JavaScript. No frameworks, no build s
 | Check design tokens and spacing | §9 Design Quick Reference |
 | Verify accessibility | §10 Accessibility Minimums |
 | Browse working code examples | §11 Cookbook Reference |
+| Research framework docs or CSS techniques | §12 Documentation & Research Access |
+
+---
+
+## §12 Documentation & Research Access
+
+**Always research before writing code.** Use MCP tools first, fall back to web search.
+
+### MCP Tools (Preferred)
+
+| Tool | Use for | How |
+|------|---------|-----|
+| **Context7** | Framework documentation | `mcp__context7__resolve-library-id` → `mcp__context7__query-docs` |
+| **Exa** | Web search for techniques | `mcp__exa__web_search_exa` with semantic query |
+| **Exa** | Fetch specific URLs | `mcp__exa__web_fetch_exa` with URL list |
+| **Playwright** | Visual verification | `mcp__playwright__browser_navigate` → `mcp__playwright__browser_snapshot` |
+
+### Context7 Workflow (for framework docs)
+
+```
+1. resolve-library-id("basecoat ui") → returns library ID
+2. query-docs(libraryId, "button component usage") → returns docs
+```
+
+Use for: Pico CSS, Basecoat UI, Flowbite, UIkit, HTMX, or any framework in §7.
+
+### Exa Workflow (for technique research)
+
+```
+1. web_search_exa("CSS container query examples 2025") → returns articles
+2. web_fetch_exa(["https://example.com/article"]) → returns full content
+```
+
+Use for: Modern CSS techniques, browser support data, best practices, code examples from blogs.
+
+### Fallback: Native WebSearch/WebFetch
+
+If MCP tools are unavailable:
+```
+1. WebSearch("technique name + year") → find articles
+2. WebFetch(url) → extract content
+```
+
+### When to Research
+
+- **Before using a framework from §7:** Fetch its latest docs via Context7
+- **Before using a cutting-edge CSS feature:** Verify browser support via Exa or WebSearch
+- **When unsure about syntax:** Search for working examples
+- **When debugging:** Search for error messages and solutions
 
 ---
 
@@ -1431,16 +1480,18 @@ Want shadcn aesthetics without React?
 
 ### Documentation Access for Agents
 
-When an agent needs framework-specific documentation:
+**Always research before using a framework.** See §12 for full MCP tool documentation.
 
-1. **Context7 MCP** (preferred) — Use `resolve-library-id` + `query-docs` tools to fetch documentation on demand
-2. **Direct fetch** — Fetch the framework's documentation website directly via `webfetch`
-3. **CDN links** — Reference the CDN URL in code examples for immediate usage
+Quick reference:
+1. **Context7 MCP** (preferred) — `mcp__context7__resolve-library-id` + `mcp__context7__query-docs`
+2. **Exa MCP** — `mcp__exa__web_search_exa` for technique research
+3. **Direct fetch** — `WebFetch(url)` as fallback
+4. **CDN links** — Reference the CDN URL in code examples for immediate usage
 
 Example Context7 workflow:
 ```
 User: "How do I use Basecoat UI's button component?"
-Agent: resolve-library-id("basecoat ui") → query-docs("/components/button")
+Agent: mcp__context7__resolve-library-id("basecoat ui") → mcp__context7__query-docs("/components/button")
 ```
 
 ---
