@@ -23,8 +23,8 @@
     --tracking-wide: 0.025em;
 
     /* Max content width */
-    --width prose: 65ch;
-    --width wide: 1200px;
-    --width full: 100%;
+    --max-width-prose: 65ch;
+    --max-width-wide: 1200px;
+    --max-width-full: 100%;
   }
 }

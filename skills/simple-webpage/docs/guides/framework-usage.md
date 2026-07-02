@@ -11,7 +11,7 @@ Use when you want a polished look without writing CSS, and the project is:
 
 ```html
 <!-- In <head> -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/nicedoc/pico@classless/css/pico.classless.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.classless.min.css">
 ```
 
 That's it. Write semantic HTML and the framework styles it automatically.

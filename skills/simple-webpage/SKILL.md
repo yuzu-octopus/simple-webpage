@@ -24,6 +24,7 @@ Build webpages with vanilla HTML, CSS, and JavaScript. No frameworks, no build s
 | Avoid common mistakes | §8 Anti-Patterns |
 | Check design tokens and spacing | §9 Design Quick Reference |
 | Verify accessibility | §10 Accessibility Minimums |
+| Additional CSS/JS patterns | §10b Additional Techniques |
 | Browse working code examples | §11 Cookbook Reference |
 | Research framework docs or CSS techniques | §12 Documentation & Research Access |
 
@@ -555,7 +556,7 @@ input:not([type="submit"]) { border: 1px solid #ccc; }
   inherits: false;
 }
 .animated-border {
-  --border-color: conic-gradient(from var(--angle), #667eea, #764ba2, #667eea);
+  --border-color: conic-gradient(from var(--angle), #667eea, #764ba2, #667eea); /* Used by ::before below */
   border: 2px solid transparent;
   animation: rotate-border 3s linear infinite;
 }
@@ -932,7 +933,7 @@ li {
 
 /* Create numbered backgrounds */
 li::before {
-  content: counter(sibling-index);
+  content: sibling-index();
 }
 
 /* Calculate values based on total siblings */
@@ -1082,7 +1083,7 @@ document.querySelectorAll('.animate').forEach(el => observer.observe(el));
 
 - Prevents style leakage to siblings or parents
 - The `to` clause limits scope to a boundary element
-- Chrome 118+, Firefox 128+
+- Chrome 118+, Firefox 128+, Safari 17.4+ (partial)
 
 ### <template> Element
 
@@ -1266,11 +1267,12 @@ fetchUser()
   .then(posts => renderPosts(posts))
   .catch(error => showError(error));
 
-// Parallel execution
-const [users, posts] = await Promise.all([
+// Parallel execution — note: returns Response objects, not parsed data
+const [usersRes, postsRes] = await Promise.all([
   fetch('/api/users'),
   fetch('/api/posts')
 ]);
+const [users, posts] = await Promise.all([usersRes.json(), postsRes.json()]);
 ```
 
 ### Event Delegation
@@ -1781,7 +1783,7 @@ Patterns live in `cookbook/` — each is a standalone HTML file with embedded CS
 - `cookbook/interactivity/todo-app/` — localStorage CRUD
 - `cookbook/interactivity/modal-dialog/` — `<dialog>` element
 - `cookbook/interactivity/accordion/` — `<details>/<summary>`
-- `cookbook/interactivity/carousel/` — Scroll-snap + ::scroll-button
+- `cookbook/interactivity/carousel/` — Scroll-snap + JS navigation
 - `cookbook/interactivity/tabs/` — :checked pseudo-class
 - `cookbook/interactivity/toast-notifications/` — Auto-dismiss notifications
 - `cookbook/interactivity/popover-api/` — HTML popover attribute

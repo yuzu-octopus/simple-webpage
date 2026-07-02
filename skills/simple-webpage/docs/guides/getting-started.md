@@ -64,7 +64,7 @@ Create `index.html`:
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Page</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/nicedoc/pico@classless/css/pico.classless.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.classless.min.css">
 </head>
 <body>
   <main class="container">

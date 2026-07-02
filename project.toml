@@ -1,25 +1,20 @@
 [project]
 name = "simple-webpage"
 tagline = "Vanilla HTML/CSS/JS — No frameworks, no build steps, no bloat"
-description = "A comprehensive reference repository and OpenCode agent skill for building webpages with vanilla HTML, CSS, and JavaScript. 1,700+ lines of patterns, 30+ cookbook demos, modern CSS techniques, and a reusable SKILL.md for AI agents."
+subtitle = "A comprehensive reference repository and OpenCode agent skill for building modern webpages with vanilla HTML, CSS, and JavaScript."
+description = "1,700+ lines of patterns, 40+ cookbook demos, modern CSS techniques, and a reusable SKILL.md for AI agents. Inspired by 37signals and Coding2GO."
 page_url = "https://yuzu-octopus.github.io/simple-webpage/"
 github_url = "https://github.com/yuzu-octopus/simple-webpage"
 quickstart_url = "https://github.com/yuzu-octopus/simple-webpage#quick-start"
 logo_svg = """<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect x="4" y="8" width="56" height="48" rx="4" stroke="#bd93f9" stroke-width="2"/>
-<rect x="4" y="8" width="56" height="12" fill="#44475a"/>
-<circle cx="12" cy="14" r="2" fill="#ff5555"/>
-<circle cx="18" cy="14" r="2" fill="#f1fa8c"/>
-<circle cx="24" cy="14" r="2" fill="#50fa7b"/>
-<text x="32" y="44" text-anchor="middle" fill="#bd93f9" font-family="monospace" font-size="14" font-weight="bold">&lt;/&gt;</text>
+<polyline points="18 16 10 32 18 48" stroke="#bd93f9" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="46 16 54 32 46 48" stroke="#bd93f9" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<line x1="38" y1="48" x2="26" y2="16" stroke="#50fa7b" stroke-width="3" stroke-linecap="round"/>
 </svg>"""
 favicon_data = """<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-<rect x="2" y="4" width="28" height="24" rx="2" fill="#282a36" stroke="#bd93f9" stroke-width="1.5"/>
-<rect x="2" y="4" width="28" height="6" fill="#44475a"/>
-<circle cx="6" cy="7" r="1" fill="#ff5555"/>
-<circle cx="9" cy="7" r="1" fill="#f1fa8c"/>
-<circle cx="12" cy="7" r="1" fill="#50fa7b"/>
-<text x="16" y="22" text-anchor="middle" fill="#bd93f9" font-family="monospace" font-size="8" font-weight="bold">&lt;/&gt;</text>
+<polyline points="9 8 4 16 9 24" stroke="#bd93f9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="23 8 28 16 23 24" stroke="#bd93f9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<line x1="19" y1="24" x2="13" y2="8" stroke="#50fa7b" stroke-width="2" stroke-linecap="round"/>
 </svg>"""
 
 [brand]
@@ -30,10 +25,7 @@ id = "about"
 title = "About"
 icon = "info"
 type = "text"
-body = """
-<p>simple-webpage is a vanilla HTML/CSS/JS reference repository and reusable OpenCode agent skill. No frameworks, no build steps, no bloat.</p>
-<p>Inspired by 37signals (Campfire/Writebook), Coding2GO, and the ponytail YAGNI philosophy — modern CSS is powerful enough that most projects don't need React, Tailwind, or any build tool.</p>
-"""
+body = """<p>simple-webpage is a vanilla HTML/CSS/JS reference repository and reusable OpenCode agent skill. No frameworks, no build steps, no bloat.</p><p>Inspired by 37signals (Campfire/Writebook), Coding2GO, and the ponytail YAGNI philosophy.</p>"""
 
 [[sections]]
 id = "features"
@@ -42,28 +34,28 @@ icon = "grid"
 type = "features"
 
 [[sections.items]]
-title = "SKILL.md (1,700+ lines)"
+title = "SKILL.md (1,800+ lines)"
 body = "Comprehensive agent skill with philosophy, decision framework, HTML/CSS/JS patterns, framework allowlist, anti-patterns, and accessibility minimums."
 
 [[sections.items]]
-title = "Cookbook (30+ patterns)"
-body = "Standalone HTML demos for layouts, navigation, forms, cards, effects, interactivity, and typography. Open in browser, copy into your project."
+title = "Cookbook (40+ patterns)"
+body = "Standalone HTML demos for layouts, navigation, forms, cards, effects, interactivity, and typography."
 
 [[sections.items]]
 title = "Design Tokens"
-body = "4-layer token system: base (raw values) → semantic (meaningful names) → components (UI-specific) → typography (fluid scale)."
+body = "4-layer token system: base, semantic, components, typography. Import via a single link tag."
 
 [[sections.items]]
 title = "Documentation"
-body = "Principles, component specs, guides (modern CSS, accessibility, dark mode, responsive, animations), and step-by-step tutorials."
+body = "Principles, component specs, guides (modern CSS, accessibility, dark mode, responsive, animations), and tutorials."
 
 [[sections.items]]
 title = "Framework Allowlist"
-body = "18+ curated CSS frameworks across 5 categories: classless, shadcn-aesthetic, minimal-class, Tailwind-based, and effect libraries."
+body = "18+ curated CSS frameworks: classless, shadcn-aesthetic, minimal-class, Tailwind-based, and effect libraries."
 
 [[sections.items]]
 title = "Modern CSS"
-body = "OKLCH colors, nesting, @layer, :has(), clamp(), container queries, scroll-snap, anchor positioning, View Transitions, and more."
+body = "OKLCH colors, nesting, @layer, :has(), clamp(), container queries, scroll-snap, anchor positioning, View Transitions."
 
 [[sections]]
 id = "techniques"
@@ -114,23 +106,23 @@ title = "4. Load the skill"
 body = "Add SKILL.md to your OpenCode config for AI-assisted development."
 
 [[sections]]
-id = "stack"
-title = "Tech Stack"
-icon = "chip"
-type = "stack"
+id = "docs"
+title = "Documentation"
+icon = "document"
+type = "features"
 
 [[sections.items]]
-name = "HTML5"
-body = "Semantic markup, no frameworks"
+title = "Principles"
+body = "Design philosophy, decision framework, why-no-frameworks rationale."
 
 [[sections.items]]
-name = "CSS3"
-body = "Modern features, no preprocessor"
+title = "Component Specs"
+body = "Typography, colors, spacing, buttons, forms, cards, navigation, modals, layout, effects, interactivity."
 
 [[sections.items]]
-name = "Vanilla JS"
-body = "No React, Vue, or build tools"
+title = "Guides"
+body = "Getting started, modern CSS, accessibility, dark mode, responsive, animations, colors, framework usage."
 
 [[sections.items]]
-name = "Zero Dependencies"
-body = "No npm, no node_modules"
+title = "Tutorials"
+body = "Step-by-step: first page, layout masterclass, interactivity, full project."
