@@ -6,15 +6,15 @@ description = "1,796-line SKILL.md with 42 cookbook patterns, design tokens, and
 page_url = "https://yuzu-octopus.github.io/simple-webpage/"
 github_url = "https://github.com/yuzu-octopus/simple-webpage"
 quickstart_url = "https://github.com/yuzu-octopus/simple-webpage#quick-start"
-logo_svg = """<svg viewBox="8 8 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-<polyline points="18 16 10 32 18 48" stroke="#bd93f9" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-<polyline points="46 16 54 32 46 48" stroke="#bd93f9" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-<line x1="38" y1="48" x2="26" y2="16" stroke="#50fa7b" stroke-width="3" stroke-linecap="round"/>
+logo_svg = """<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+<polyline points="12 10 5 20 12 30" stroke="#bd93f9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="28 10 35 20 28 30" stroke="#bd93f9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<line x1="24" y1="30" x2="16" y2="10" stroke="#50fa7b" stroke-width="2" stroke-linecap="round"/>
 </svg>"""
-favicon_data = """<svg viewBox="4 4 24 24" xmlns="http://www.w3.org/2000/svg">
-<polyline points="9 8 4 16 9 24" stroke="#bd93f9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-<polyline points="23 8 28 16 23 24" stroke="#bd93f9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-<line x1="19" y1="24" x2="13" y2="8" stroke="#50fa7b" stroke-width="2" stroke-linecap="round"/>
+favicon_data = """<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+<polyline points="6 5 2.5 10 6 15" stroke="#bd93f9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="14 5 17.5 10 14 15" stroke="#bd93f9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<line x1="12" y1="15" x2="8" y2="5" stroke="#50fa7b" stroke-width="1.2" stroke-linecap="round"/>
 </svg>"""
 
 [brand]
