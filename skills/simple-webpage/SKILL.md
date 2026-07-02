@@ -584,45 +584,6 @@ input:not([type="submit"]) { border: 1px solid #ccc; }
 }
 ```
 
-### Flexbox Properties Reference
-
-```css
-.container {
-  display: flex;
-
-  /* Main axis direction */
-  flex-direction: row | row-reverse | column | column-reverse;
-
-  /* Main axis distribution */
-  justify-content: flex-start | flex-end | center | space-between | space-around | space-evenly;
-
-  /* Cross axis alignment */
-  align-items: flex-start | flex-end | center | stretch | baseline;
-
-  /* Multi-line wrapping */
-  flex-wrap: nowrap | wrap | wrap-reverse;
-
-  /* Cross axis alignment for multi-line */
-  align-content: flex-start | flex-end | center | space-between | space-around;
-
-  /* Gap between items */
-  gap: 1rem;
-}
-
-.item {
-  /* Shorthand: flex: grow shrink basis */
-  flex: 1 1 auto;    /* grow equally, shrink equally, base size from content */
-  flex: 0 0 200px;   /* no grow, no shrink, fixed 200px */
-  flex: 1;           /* shorthand for flex: 1 1 0% */
-
-  /* Override alignment for individual items */
-  align-self: flex-start | flex-end | center | stretch;
-
-  /* Reorder items (visual only, not DOM) */
-  order: -1 | 0 | 1;
-}
-```
-
 **When to use Grid vs Flexbox:** Grid for 2D layouts (rows AND columns). Flexbox for 1D layouts (row OR column). Grid: parent defines layout, children follow. Flexbox: children determine layout.
 
 ### display: inline-flex
@@ -690,14 +651,6 @@ body {
 /* Stack elements (replaces position: absolute) */
 .stack { display: grid; }
 .stack > * { grid-area: 1 / 1; }
-```
-
-### Resize Property
-
-```css
-textarea { resize: both; }
-textarea { resize: vertical; }
-textarea { resize: none; }
 ```
 
 ### Cubic Bezier Easing
@@ -828,17 +781,6 @@ body {
 @container (min-width: 400px) {
   .card { display: grid; grid-template-columns: 1fr 2fr; }
 }
-```
-
-### CSS Shorthand vs Longhand
-
-```css
-/* Shorthand — use when clear */
-margin: 1rem 2rem;
-background: #fff url('img.png') no-repeat center / cover;
-
-/* Longhand — use when you need individual control */
-margin-top: 1rem;
 ```
 
 ### CSS @function (Custom Functions)
@@ -1329,64 +1271,6 @@ const id = crypto.randomUUID();
 const item = { id: crypto.randomUUID(), text: 'New item' };
 ```
 
-### Array Iteration Methods
-
-```javascript
-// map — transform each element, return new array
-const names = users.map(u => u.name);
-
-// filter — keep elements that pass a test
-const adults = users.filter(u => u.age >= 18);
-
-// reduce — accumulate into a single value
-const total = prices.reduce((sum, p) => sum + p, 0);
-
-// find — get first matching element
-const admin = users.find(u => u.role === 'admin');
-
-// findIndex — get index of first match
-const idx = users.findIndex(u => u.id === targetId);
-
-// forEach — run code for each element (no return value)
-users.forEach(u => console.log(u.name));
-
-// Chaining
-const result = users
-  .filter(u => u.active)
-  .map(u => u.name)
-  .join(', ');
-```
-
-### Destructuring
-
-```javascript
-// Object destructuring
-const { name, age, email = 'N/A' } = user;
-
-// Array destructuring
-const [first, second, ...rest] = [1, 2, 3, 4, 5];
-// first=1, second=2, rest=[3,4,5]
-
-// In function parameters
-function greet({ name, greeting = 'Hello' }) {
-  return `${greeting}, ${name}`;
-}
-greet({ name: 'Alex' }); // "Hello, Alex"
-```
-
-### Optional Chaining & Nullish Coalescing
-
-```javascript
-// Optional chaining (?.) — safe property access
-const city = user?.address?.city; // undefined if any part is null/undefined
-const first = arr?.[0]; // undefined if arr is null/undefined
-const result = obj?.method?.(); // undefined if method doesn't exist
-
-// Nullish coalescing (??) — fallback only for null/undefined
-const name = user.name ?? 'Anonymous';
-// vs || which also falls back for 0, '', false
-```
-
 ### DOMContentLoaded
 
 ```javascript
@@ -1698,16 +1582,6 @@ h2::before {
 .btn:hover::after { z-index: 0; }
 ```
 
-### Ternary Operator (JS Pattern)
-
-```javascript
-// Concise conditional
-const result = condition ? valueIfTrue : valueIfFalse;
-
-// In event handlers
-darkMode !== 'active' ? enableDark() : disableDark();
-```
-
 ### Early Return Pattern (JS)
 
 ```javascript
@@ -1718,19 +1592,6 @@ function processUser(user) {
   if (!user.email) return;
   // happy path here
 }
-```
-
-### Spread Operator for Immutable Copies
-
-```javascript
-// Object copy (breaks reference)
-const copy = { ...original };
-
-// Override specific property
-const updated = { ...product, price: product.price * 0.5 };
-
-// Array copy
-const newArr = [...oldArr];
 ```
 
 ---

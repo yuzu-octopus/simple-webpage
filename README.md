@@ -25,9 +25,8 @@ simple-webpage/
 │       │   ├── effects/
 │       │   ├── interactivity/
 │       │   └── typography/
-│       ├── docs/                # Principles, specs, guides, tutorials
+│       ├── docs/                # Principles, guides, tutorials
 │       │   ├── principles/
-│       │   ├── specs/
 │       │   ├── guides/
 │       │   └── tutorials/
 │       ├── tokens/              # Design token CSS files
@@ -53,18 +52,6 @@ python3 -m http.server 8000
 # or: php -S localhost:8000
 ```
 
-## Techniques Covered
+## Tech Stack
 
-From Coding2GO, 37signals, and modern CSS best practices:
-
-- OKLCH colors, relative colors, `currentColor`
-- CSS nesting, `@layer`, `@property`
-- `clamp()` fluid typography, `text-wrap: balance`
-- `:has()`, `:not()`, `::scroll-button()`
-- Glassmorphism, neumorphism, gradient text
-- Scroll-snap carousels, anchor positioning
-- `<dialog>`, `<details>`, Popover API
-- Dark mode with `light-dark()` and localStorage
-- Responsive grid with `auto-fit`/`minmax()`
-- `@starting-style` entry animations
-- Scroll-driven animations
+- SKILL.md · HTML · CSS · JavaScript · Design Tokens
