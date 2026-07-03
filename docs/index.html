@@ -6,6 +6,7 @@
   <title>simple-webpage | Vanilla HTML/CSS/JS — No frameworks, no build steps, no bloat</title>
   <meta name="description" content="1,796-line SKILL.md with 42 cookbook patterns, design tokens, and 250+ CSS techniques. Build webpages with vanilla HTML/CSS/JS — no frameworks, no build steps.">
   <meta name="theme-color" content="#282a36">
+  <meta name="color-scheme" content="dark light">
   <meta property="og:type" content="website">
   <meta property="og:title" content="simple-webpage | Vanilla HTML/CSS/JS — No frameworks, no build steps, no bloat">
   <meta property="og:description" content="1,796-line SKILL.md with 42 cookbook patterns, design tokens, and 250+ CSS techniques. Build webpages with vanilla HTML/CSS/JS — no frameworks, no build steps.">
@@ -25,7 +26,7 @@
       --bg: #282a36;
       --panel: #44475a;
       --fg: #f8f8f2;
-      --muted: #6272a4;
+      --muted: #8892b0;
       --purple: #bd93f9;
       --pink: #ff79c6;
       --cyan: #8be9fd;
@@ -42,7 +43,7 @@
       --bg: #fafafa;
       --panel: #ffffff;
       --fg: #1a1a1a;
-      --muted: #6b7280;
+      --muted: #4b5563;
       --purple: #7c3aed;
       --pink: #db2777;
       --cyan: #0891b2;
@@ -75,9 +76,12 @@
 
     a { color: var(--cyan); text-decoration: none; }
     a:hover { color: var(--pink); }
+
+    ::selection { background: var(--purple); color: var(--bg); }
     a:focus-visible,
     .btn:focus-visible,
-    .mobile-toggle:focus-visible {
+    .mobile-toggle:focus-visible,
+    .theme-toggle:focus-visible {
       outline: 2px solid var(--pink);
       outline-offset: 2px;
     }
@@ -150,7 +154,6 @@
     .sidebar-nav a {
       display: flex;
       align-items: center;
-      gap: 0;
       padding: 8px 12px;
       min-height: 44px;
       color: var(--muted);
@@ -162,7 +165,7 @@
     }
 
     .sidebar-nav a:hover {
-      background: rgba(255, 255, 255, 0.06);
+      background: color-mix(in srgb, var(--fg) 8%, transparent);
       color: var(--fg);
     }
 
@@ -356,31 +359,11 @@
       border-radius: 12px;
       padding: 24px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--purple), var(--pink));
-      opacity: 0;
-      transition: opacity var(--transition);
+      transition: border-color var(--transition);
     }
 
     .card:hover {
-      transform: translateY(-2px);
       border-color: var(--purple);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
-    }
-
-    .card:hover::before {
-      opacity: 1;
     }
 
     .card h3 {
@@ -391,7 +374,7 @@
 
     .card p {
       color: var(--fg);
-      font-size: 0.8rem;
+      font-size: 0.85rem;
     }
 
     table {
@@ -535,10 +518,17 @@
       transform: translateY(0);
     }
 
+    @media (prefers-reduced-motion: reduce) {
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
     ::-webkit-scrollbar { width: 8px; height: 8px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: var(--panel); border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+    ::-webkit-scrollbar-thumb { background: var(--muted); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--purple); }
 
     .skip-link { position: absolute; left: -9999px; }
     .skip-link:focus { left: 8px; top: 8px; background: var(--purple); color: var(--bg); padding: 8px 12px; z-index: 1300; }
@@ -591,7 +581,7 @@
       min-height: 44px;
       border-radius: 6px;
       cursor: pointer;
-      transition: background 250ms cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all var(--transition);
     }
 
     .mobile-toggle:hover {
@@ -697,7 +687,7 @@
     <div class="container">
       <h1>simple-webpage</h1>
       <p class="tagline">Vanilla HTML/CSS/JS — No frameworks, no build steps, no bloat</p>
-      <div class="terminal">
+      <div class="terminal" aria-hidden="true">
         <div class="terminal-header">
           <span class="terminal-dot"></span>
           <span class="terminal-dot"></span>
