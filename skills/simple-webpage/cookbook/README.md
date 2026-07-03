@@ -73,3 +73,14 @@ Standalone HTML patterns for vanilla web development. Each file is self-containe
 | [Text Balance](typography/text-balance/) | `text-wrap: balance` | Headings, short text |
 | [Decorative Headings](typography/decorative-headings/) | Gradient, `writing-mode` | Hero sections, emphasis |
 | [Vertical Rhythm](typography/vertical-rhythm/) | Consistent spacing baseline | Content-heavy pages |
+
+### Style Inspiration
+Complete page examples showing different design aesthetics. Copy and adapt for your project.
+
+| Style | Aesthetic | When to use |
+|-------|-----------|-------------|
+| [Minimalist](styles/minimalist/) | Clean whitespace, system fonts, monochrome | Documentation, CLI tools, dev blogs |
+| [Dark Premium](styles/dark-premium/) | Black bg, gradient accents, dense layout | SaaS landing pages, developer products |
+| [SaaS Dashboard](styles/saas-dashboard/) | Sidebar nav, stats cards, data tables | Admin panels, analytics, internal tools |
+| [Portfolio](styles/portfolio/) | Serif fonts, editorial layout, understated | Designer/developer portfolios, personal sites |
+| [Landing Page](styles/landing-page/) | Hero + features + CTA, social proof | Marketing pages, product launches |

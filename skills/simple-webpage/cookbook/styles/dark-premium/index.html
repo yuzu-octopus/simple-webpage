@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dark Premium Style</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { color-scheme: dark; }
+    body { font-family: system-ui, -apple-system, sans-serif; background: #000; color: #ededed; line-height: 1.6; }
+    header { padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #222; }
+    header nav { display: flex; gap: 2rem; }
+    header nav a { color: #888; text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+    header nav a:hover { color: #fff; }
+    .btn { padding: 0.5rem 1rem; border-radius: 6px; font-size: 0.85rem; text-decoration: none; transition: all 0.2s; }
+    .btn-primary { background: #fff; color: #000; }
+    .btn-primary:hover { background: #ddd; }
+    main { max-width: 1000px; margin: 0 auto; padding: 6rem 2rem; text-align: center; }
+    h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 700; letter-spacing: -0.04em; margin-bottom: 1.5rem; line-height: 1.1; }
+    h1 span { display: block; background: linear-gradient(135deg, #a855f7, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .subtitle { font-size: 1.1rem; color: #888; max-width: 500px; margin: 0 auto 3rem; }
+    .cta { display: flex; gap: 1rem; justify-content: center; margin-bottom: 4rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1px; background: #222; border: 1px solid #222; border-radius: 12px; overflow: hidden; text-align: left; }
+    .card { background: #0a0a0a; padding: 2rem; }
+    .card h3 { font-size: 1rem; margin-bottom: 0.5rem; }
+    .card p { color: #666; font-size: 0.85rem; }
+    footer { padding: 3rem 2rem; text-align: center; color: #444; font-size: 0.8rem; border-top: 1px solid #111; }
+  </style>
+</head>
+<body>
+  <header>
+    <strong style="font-size: 1.1rem;">▲ vercel</strong>
+    <nav>
+      <a href="#">Products</a>
+      <a href="#">Solutions</a>
+      <a href="#">Docs</a>
+      <a href="#">Pricing</a>
+    </nav>
+    <a href="#" class="btn btn-primary">Sign Up</a>
+  </header>
+  <main>
+    <h1>Develop. Preview.<span>Ship.</span></h1>
+    <p class="subtitle">Build and deploy the best web experiences with zero configuration.</p>
+    <div class="cta">
+      <a href="#" class="btn btn-primary">Start Deploying</a>
+      <a href="#" class="btn" style="border: 1px solid #333; color: #ededed;">Documentation</a>
+    </div>
+    <div class="grid">
+      <div class="card"><h3>Edge Functions</h3><p>Execute serverless code at the edge with zero cold starts.</p></div>
+      <div class="card"><h3>Incremental Static</h3><p>Regenerate pages on-demand without full rebuilds.</p></div>
+      <div class="card"><h3>Analytics</h3><p>Real-time insights into your web application performance.</p></div>
+    </div>
+  </main>
+  <footer>&copy; 2026 vercel inc.</footer>
+</body>
+</html>

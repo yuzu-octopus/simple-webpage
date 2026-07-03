@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SaaS Dashboard Style</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, -apple-system, sans-serif; background: #f8fafc; color: #1e293b; line-height: 1.5; display: grid; grid-template-columns: 240px 1fr; min-height: 100vh; }
+    aside { background: #fff; border-right: 1px solid #e2e8f0; padding: 1.5rem; }
+    aside .logo { font-weight: 700; font-size: 1.1rem; margin-bottom: 2rem; color: #6366f1; }
+    aside nav a { display: block; padding: 0.6rem 1rem; color: #64748b; text-decoration: none; border-radius: 8px; font-size: 0.9rem; margin-bottom: 0.25rem; }
+    aside nav a:hover { background: #f1f5f9; color: #1e293b; }
+    aside nav a.active { background: #eef2ff; color: #6366f1; font-weight: 500; }
+    .content { padding: 2rem; }
+    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+    .header h1 { font-size: 1.5rem; font-weight: 600; }
+    .header .avatar { width: 36px; height: 36px; border-radius: 50%; background: #e2e8f0; }
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+    .stat { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.25rem; }
+    .stat .label { font-size: 0.8rem; color: #64748b; margin-bottom: 0.25rem; }
+    .stat .value { font-size: 1.75rem; font-weight: 700; }
+    .stat .change { font-size: 0.8rem; color: #10b981; }
+    .table { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; }
+    .table table { width: 100%; border-collapse: collapse; }
+    .table th { background: #f8fafc; padding: 0.75rem 1rem; text-align: left; font-size: 0.8rem; font-weight: 600; color: #64748b; border-bottom: 1px solid #e2e8f0; }
+    .table td { padding: 0.75rem 1rem; font-size: 0.85rem; border-bottom: 1px solid #f1f5f9; }
+    .table tr:last-child td { border-bottom: none; }
+    .badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 999px; font-size: 0.75rem; font-weight: 500; }
+    .badge-green { background: #dcfce7; color: #166534; }
+    .badge-yellow { background: #fef9c3; color: #854d0e; }
+    @media (max-width: 768px) { body { grid-template-columns: 1fr; } aside { display: none; } }
+  </style>
+</head>
+<body>
+  <aside>
+    <div class="logo">acme</div>
+    <nav>
+      <a href="#" class="active">Dashboard</a>
+      <a href="#">Projects</a>
+      <a href="#">Team</a>
+      <a href="#">Settings</a>
+      <a href="#">Billing</a>
+    </nav>
+  </aside>
+  <div class="content">
+    <div class="header">
+      <h1>Dashboard</h1>
+      <div class="avatar"></div>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="label">Revenue</div><div class="value">$48,290</div><div class="change">+12.5%</div></div>
+      <div class="stat"><div class="label">Users</div><div class="value">2,340</div><div class="change">+8.2%</div></div>
+      <div class="stat"><div class="label">Conversion</div><div class="value">3.2%</div><div class="change">+0.4%</div></div>
+    </div>
+    <div class="table">
+      <table>
+        <thead><tr><th>Project</th><th>Status</th><th>Revenue</th></tr></thead>
+        <tbody>
+          <tr><td>Website Redesign</td><td><span class="badge badge-green">Active</span></td><td>$12,400</td></tr>
+          <tr><td>Mobile App</td><td><span class="badge badge-yellow">Pending</span></td><td>$8,200</td></tr>
+          <tr><td>API Integration</td><td><span class="badge badge-green">Active</span></td><td>$27,690</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>
