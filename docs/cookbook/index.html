@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cookbook — simple-webpage</title>
+  <meta name="color-scheme" content="dark light">
+  <style>
+    :root { color-scheme: dark; --bg: #282a36; --panel: #44475a; --fg: #f8f8f2; --muted: #8892b0; --purple: #bd93f9; --pink: #ff79c6; --cyan: #8be9fd; --green: #50fa7b; }
+    [data-theme="light"] { color-scheme: light; --bg: #fafafa; --panel: #fff; --fg: #1a1a1a; --muted: #4b5563; --purple: #7c3aed; --pink: #db2777; --cyan: #0891b2; --green: #059669; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'JetBrains Mono', system-ui, monospace; background: var(--bg); color: var(--fg); line-height: 1.6; }
+    a { color: var(--cyan); text-decoration: none; }
+    a:hover { color: var(--pink); }
+    ::selection { background: var(--purple); color: var(--bg); }
+    header { padding: 2rem; text-align: center; border-bottom: 1px solid var(--muted); }
+    header h1 { font-size: 1.8rem; color: var(--purple); margin-bottom: 0.5rem; }
+    header p { color: var(--muted); font-size: 0.9rem; }
+    .back { position: fixed; top: 1rem; left: 1rem; z-index: 100; background: var(--panel); border: 1px solid var(--muted); color: var(--fg); padding: 0.5rem 1rem; border-radius: 6px; font-size: 0.8rem; }
+    .back:hover { border-color: var(--purple); color: var(--fg); }
+    .theme-btn { position: fixed; top: 1rem; right: 1rem; z-index: 100; background: var(--panel); border: 1px solid var(--muted); color: var(--fg); width: 40px; height: 40px; border-radius: 8px; cursor: pointer; font-size: 1.1rem; }
+    main { max-width: 1000px; margin: 0 auto; padding: 2rem; }
+    .category { margin-bottom: 3rem; }
+    .category h2 { font-size: 1.1rem; color: var(--purple); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--muted); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+    .card { background: var(--panel); border: 1px solid var(--muted); border-radius: 8px; padding: 1rem; transition: border-color 0.2s; }
+    .card:hover { border-color: var(--purple); }
+    .card a { display: block; font-weight: 600; margin-bottom: 0.25rem; }
+    .card p { color: var(--muted); font-size: 0.8rem; }
+    footer { text-align: center; padding: 2rem; color: var(--muted); font-size: 0.8rem; border-top: 1px solid var(--muted); }
+  </style>
+</head>
+<body>
+  <a href="../" class="back">&larr; Home</a>
+  <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">&#9790;</button>
+  <header>
+    <h1>Cookbook</h1>
+    <p>47 standalone HTML patterns — open in browser, copy into project</p>
+  </header>
+  <main>
+    <div class="category">
+      <h2>Layouts</h2>
+      <div class="grid">
+        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/layouts/responsive-grid/index.html">Responsive Grid</a><p>repeat(auto-fit, minmax())</p></div>
+        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/layouts/sidebar-layout/index.html">Sidebar Layout</a><p>Flexbox dashboard</p></div>
+        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/layouts/hero-section/index.html">Hero Section</a><p>Flexbox/Grid hero</p></div>
+        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/layouts/holy-grail/index.html">Holy Grail</a><p>CSS Grid classic</p></div>
+        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/layouts/dashboard/index.html">Dashboard</a><p>grid-template-areas</p></div>
+        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/layouts/masonry/index.html">Masonry</a><p>grid-template-rows</p></div>
+      </div>
+    </div>
+    <div class="category">
+      <h2>Navigation</h2>
+      <div class="grid">
+        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/navigation/navbar/index.html">Navbar</a><p>Flexbox + margin:auto</p></div>
+        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/navigation/sidebar-menu/index.html">Sidebar Menu</a><p>CSS Grid + transitions</p></div>
+        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/navigation/mobile-hamburger/index.html">Mobile Hamburger</a><p>ARIA + JS toggle</p></div>
+        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/navigation/sticky-header/index.html">Sticky Header</a><p>position: sticky</p></div>
+        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/navigation/breadcrumbs/index.html">Breadcrumbs</a><p>Semantic nav + aria</p></div>
+      </div>
+    </div>
+    <div class="category">
+      <h2>Forms</h2>
+      <div class="grid">
+        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/forms/login-signup/index.html">Login/Signup</a><p>Validation + responsive</p></div>
+        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/forms/form-validation/index.html">Form Validation</a><p>Front-end validation</p></div>
+        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/forms/search-bar/index.html">Search Bar</a><p>Input + icon</p></div>
+        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/forms/contact-form/index.html">Contact Form</a><p>Multi-field layout</p></div>
+        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/forms/multi-step/index.html">Multi-Step</a><p>Step wizard</p></div>
+      </div>
+    </div>
+    <div class="category">
+      <h2>Cards</h2>
+      <div class="grid">
+        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/cards/profile-card/index.html">Profile Card</a><p>User profiles</p></div>
+        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/cards/product-card/index.html">Product Card</a><p>E-commerce</p></div>
+        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/cards/article-card/index.html">Article Card</a><p>Blog feeds</p></div>
+        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/cards/pricing-card/index.html">Pricing Card</a><p>Tier comparison</p></div>
+      </div>
+    </div>
+    <div class="category">
+      <h2>Effects</h2>
+      <div class="grid">
+        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/effects/glassmorphism/index.html">Glassmorphism</a><p>backdrop-filter: blur</p></div>
+        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/effects/neumorphism/index.html">Neumorphism</a><p>Dual box-shadows</p></div>
+        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/effects/gradient-text/index.html">Gradient Text</a><p>background-clip: text</p></div>
+        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/effects/border-animations/index.html">Border Animations</a><p>@property + conic</p></div>
+        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/effects/hover-effects/index.html">Hover Effects</a><p>Transform + transition</p></div>
+        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/effects/scroll-snap/index.html">Scroll Snap</a><p>CSS-only carousel</p></div>
+        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/effects/scroll-driven-animations/index.html">Scroll-Driven</a><p>animation-timeline: view()</p></div>
+        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/effects/animated-tooltips/index.html">Tooltips</a><p>::before/::after + attr()</p></div>
+        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/effects/triangles/index.html">Triangles</a><p>Border trick</p></div>
+      </div>
+    </div>
+    <div class="category">
+      <h2>Interactivity</h2>
+      <div class="grid">
+        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/interactivity/dark-mode/index.html">Dark Mode</a><p>CSS vars + localStorage</p></div>
+        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/interactivity/todo-app/index.html">Todo App</a><p>localStorage CRUD</p></div>
+        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/interactivity/modal-dialog/index.html">Modal Dialog</a><p>dialog element</p></div>
+        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/interactivity/accordion/index.html">Accordion</a><p>details/summary</p></div>
+        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/interactivity/carousel/index.html">Carousel</a><p>Scroll-snap + JS</p></div>
+        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/interactivity/tabs/index.html">Tabs</a><p>:checked pseudo-class</p></div>
+        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/interactivity/toast-notifications/index.html">Toasts</a><p>JS + CSS transitions</p></div>
+        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/interactivity/popover-api/index.html">Popover API</a><p>HTML popover attr</p></div>
+        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/interactivity/css-only-dropdown/index.html">CSS Dropdown</a><p>:focus/:focus-within</p></div>
+      </div>
+    </div>
+    <div class="category">
+      <h2>Typography</h2>
+      <div class="grid">
+        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/typography/fluid-type/index.html">Fluid Type</a><p>clamp() responsive</p></div>
+        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/typography/text-balance/index.html">Text Balance</a><p>text-wrap: balance</p></div>
+        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/typography/decorative-headings/index.html">Decorative Headings</a><p>Gradient, writing-mode</p></div>
+        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/typography/vertical-rhythm/index.html">Vertical Rhythm</a><p>Consistent spacing</p></div>
+      </div>
+    </div>
+    <div class="category">
+      <h2>Style Inspiration</h2>
+      <div class="grid">
+        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/styles/minimalist/index.html">Minimalist</a><p>Clean whitespace, Ollama-inspired</p></div>
+        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/styles/dark-premium/index.html">Dark Premium</a><p>Black bg, Vercel-inspired</p></div>
+        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/styles/saas-dashboard/index.html">SaaS Dashboard</a><p>Sidebar, stats, tables</p></div>
+        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/styles/portfolio/index.html">Portfolio</a><p>Serif, editorial layout</p></div>
+        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/styles/landing-page/index.html">Landing Page</a><p>Hero + features + CTA</p></div>
+      </div>
+    </div>
+  </main>
+  <footer>simple-webpage &mdash; vanilla HTML/CSS/JS, no frameworks</footer>
+  <script>
+    function toggleTheme() {
+      var h = document.documentElement;
+      var t = h.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      h.setAttribute('data-theme', t);
+      localStorage.setItem('theme', t);
+    }
+    (function() { var s = localStorage.getItem('theme'); if (s) document.documentElement.setAttribute('data-theme', s); })();
+  </script>
+</body>
+</html>
