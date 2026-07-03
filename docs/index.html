@@ -21,6 +21,7 @@
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     :root {
+      color-scheme: dark;
       --bg: #282a36;
       --panel: #44475a;
       --fg: #f8f8f2;
@@ -33,6 +34,22 @@
       --red: #ff5555;
       --yellow: #f1fa8c;
       --font: 'JetBrains Mono', monospace;
+      --transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    [data-theme="light"] {
+      color-scheme: light;
+      --bg: #fafafa;
+      --panel: #ffffff;
+      --fg: #1a1a1a;
+      --muted: #6b7280;
+      --purple: #7c3aed;
+      --pink: #db2777;
+      --cyan: #0891b2;
+      --green: #059669;
+      --orange: #d97706;
+      --red: #dc2626;
+      --yellow: #ca8a04;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -180,7 +197,7 @@
     }
 
     section {
-      padding: 48px 40px;
+      padding: 64px 40px;
     }
 
     .container {
@@ -190,25 +207,40 @@
 
     h2 {
       color: var(--purple);
-      border-bottom: 2px solid var(--purple);
-      padding-bottom: 8px;
-      font-size: 1.6rem;
-      margin-bottom: 24px;
+      font-size: 1.5rem;
+      margin-bottom: 32px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--muted);
     }
 
     .hero {
       text-align: center;
       padding: 80px 40px 48px;
+      position: relative;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 400px;
+      background: radial-gradient(ellipse at center, rgba(189, 147, 249, 0.1) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: -1;
     }
 
     .hero h1 {
-      font-size: 3rem;
+      font-size: clamp(2rem, 5vw, 3rem);
       color: var(--purple);
       margin-bottom: 12px;
+      text-wrap: balance;
     }
 
     .hero .tagline {
-      font-size: 1.2rem;
+      font-size: clamp(1rem, 2vw, 1.2rem);
       color: var(--fg);
       margin-bottom: 16px;
     }
@@ -220,6 +252,51 @@
       margin: 0 auto 32px;
     }
 
+    .terminal {
+      background: var(--bg);
+      border: 1px solid var(--muted);
+      border-radius: 8px;
+      max-width: 500px;
+      margin: 0 auto 32px;
+      overflow: hidden;
+    }
+
+    .terminal-header {
+      display: flex;
+      gap: 6px;
+      padding: 10px 14px;
+      background: var(--panel);
+      border-bottom: 1px solid var(--muted);
+    }
+
+    .terminal-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .terminal-dot:nth-child(1) { background: #ff5f57; }
+    .terminal-dot:nth-child(2) { background: #febc2e; }
+    .terminal-dot:nth-child(3) { background: #28c840; }
+
+    .terminal-body {
+      padding: 16px;
+      font-size: 0.85rem;
+      line-height: 1.6;
+    }
+
+    .terminal-body .prompt {
+      color: var(--green);
+    }
+
+    .terminal-body .cmd {
+      color: var(--fg);
+    }
+
+    .terminal-body .output {
+      color: var(--muted);
+    }
+
     .cta {
       display: flex;
       gap: 12px;
@@ -229,11 +306,13 @@
 
     .btn {
       display: inline-block;
-      padding: 8px 16px;
-      font-size: 0.8rem;
+      padding: 10px 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
       border: 1px solid var(--muted);
-      border-radius: 4px;
-      transition: all 0.2s;
+      border-radius: 8px;
+      transition: all var(--transition);
+      text-decoration: none;
     }
 
     .btn-primary {
@@ -246,16 +325,20 @@
       background: var(--pink);
       border-color: var(--pink);
       color: var(--fg);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
 
     .btn-outline {
       color: var(--cyan);
       border-color: var(--cyan);
+      background: transparent;
     }
 
     .btn-outline:hover {
       color: var(--pink);
       border-color: var(--pink);
+      transform: translateY(-1px);
     }
 
     .grid {
@@ -267,15 +350,16 @@
     .card {
       background: var(--panel);
       border: 1px solid var(--muted);
-      border-radius: 8px;
-      padding: 20px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-      transition: border-color 0.2s, box-shadow 0.2s;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
     }
 
     .card:hover {
+      transform: translateY(-2px);
       border-color: var(--purple);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
     }
 
     .card h3 {
@@ -405,13 +489,30 @@
     .stack .badge {
       background: var(--panel);
       border: 1px solid var(--muted);
-      padding: 6px 12px;
-      border-radius: 4px;
-      font-size: 0.75rem;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.8rem;
       color: var(--fg);
+      transition: all var(--transition);
+    }
+
+    .stack .badge:hover {
+      border-color: var(--purple);
+      transform: translateY(-1px);
     }
 
     .stack .badge strong { color: var(--purple); }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
     ::-webkit-scrollbar { width: 8px; height: 8px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
@@ -420,6 +521,40 @@
 
     .skip-link { position: absolute; left: -9999px; }
     .skip-link:focus { left: 8px; top: 8px; background: var(--purple); color: var(--bg); padding: 8px 12px; z-index: 1300; }
+
+    .theme-toggle {
+      position: fixed;
+      top: 12px;
+      right: 12px;
+      z-index: 1200;
+      background: var(--panel);
+      border: 1px solid var(--muted);
+      color: var(--fg);
+      padding: 10px 12px;
+      min-width: 44px;
+      min-height: 44px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background var(--transition), border-color var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .theme-toggle:hover {
+      background: var(--muted);
+      border-color: var(--purple);
+    }
+
+    .theme-toggle svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .theme-toggle .icon-moon { display: block; }
+    .theme-toggle .icon-sun { display: none; }
+    [data-theme="light"] .theme-toggle .icon-moon { display: none; }
+    [data-theme="light"] .theme-toggle .icon-sun { display: block; }
 
     .mobile-toggle {
       display: none;
@@ -456,6 +591,10 @@
       .mobile-toggle { display: block; }
       .sidebar.open { display: flex; }
       .sidebar-overlay.open { display: block; }
+      .hero { padding: 60px 20px 40px; }
+      .hero h1 { font-size: 2rem; }
+      section { padding: 48px 20px; }
+      .terminal { margin: 0 -20px 32px; border-radius: 0; border-left: none; border-right: none; }
     }
   </style>
 </head>
@@ -466,6 +605,11 @@
 <button class="mobile-toggle" id="mobile-toggle" onclick="toggleSidebar()" aria-label="Toggle mobile menu" aria-controls="sidebar" aria-expanded="false">&#9776;</button>
 <div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
 <a class="skip-link" href="#main-content">Skip to content</a>
+
+<button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+  <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+</button>
 
 <aside class="sidebar" id="sidebar">
   <div class="sidebar-brand">
@@ -532,18 +676,26 @@
     <div class="container">
       <h1>simple-webpage</h1>
       <p class="tagline">Vanilla HTML/CSS/JS — No frameworks, no build steps, no bloat</p>
-      <p class="subtitle">A comprehensive reference repository and OpenCode agent skill for building modern webpages with vanilla HTML, CSS, and JavaScript.</p>
+      <div class="terminal">
+        <div class="terminal-header">
+          <span class="terminal-dot"></span>
+          <span class="terminal-dot"></span>
+          <span class="terminal-dot"></span>
+        </div>
+        <div class="terminal-body">
+          <div><span class="prompt">$</span> <span class="cmd">open skills/simple-webpage/cookbook/layouts/hero-section/index.html</span></div>
+          <div class="output">42 patterns · 1,657 lines · zero dependencies</div>
+        </div>
+      </div>
       <div class="cta">
         <a href="https://github.com/yuzu-octopus/simple-webpage" class="btn btn-primary">View on GitHub</a>
-        
         <a href="https://github.com/yuzu-octopus/simple-webpage#quick-start" class="btn btn-outline">Quick Start</a>
-        
       </div>
     </div>
   </section>
 
-  
-  <section id="about">
+
+  <section id="about" class="reveal">
     <div class="container">
       <h2>About</h2>
 
@@ -554,7 +706,7 @@
     </div>
   </section>
   
-  <section id="features">
+  <section id="features" class="reveal">
     <div class="container">
       <h2>What's Inside</h2>
 
@@ -597,7 +749,7 @@
     </div>
   </section>
   
-  <section id="tech-stack">
+  <section id="tech-stack" class="reveal">
     <div class="container">
       <h2>Tech Stack</h2>
 
@@ -620,7 +772,7 @@
     </div>
   </section>
   
-  <section id="getting-started">
+  <section id="getting-started" class="reveal">
     <div class="container">
       <h2>Getting Started</h2>
 
@@ -641,7 +793,7 @@
     </div>
   </section>
   
-  <section id="docs">
+  <section id="docs" class="reveal">
     <div class="container">
       <h2>Documentation</h2>
 
@@ -693,11 +845,40 @@ function closeSidebar() {
   document.getElementById('mobile-toggle').setAttribute('aria-expanded', 'false');
 }
 
+function toggleTheme() {
+  var html = document.documentElement;
+  var current = html.getAttribute('data-theme');
+  var next = current === 'light' ? 'dark' : 'light';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+}
+
+(function() {
+  var saved = localStorage.getItem('theme');
+  if (saved) {
+    document.documentElement.setAttribute('data-theme', saved);
+  }
+})();
+
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape' && document.querySelector('.sidebar.open')) {
     closeSidebar();
   }
 });
+
+if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(function(el) {
+    observer.observe(el);
+  });
+}
 </script>
 </body>
 </html>
