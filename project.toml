@@ -129,6 +129,32 @@ title = "Tutorials"
 body = "Step-by-step: first page, layout masterclass, interactivity, full project."
 
 [[sections]]
+id = "timeline"
+title = "Milestones"
+icon = "timer"
+type = "timeline"
+
+[[sections.items]]
+title = "SKILL.md Created"
+body = "1,657-line agent skill with philosophy, patterns, and anti-patterns."
+date = "Mar 2026"
+
+[[sections.items]]
+title = "Cookbook Added"
+body = "47 standalone HTML demos covering layouts, navigation, forms, cards, and effects."
+date = "Apr 2026"
+
+[[sections.items]]
+title = "Design Tokens"
+body = "4-layer token system: base, semantic, components, typography."
+date = "May 2026"
+
+[[sections.items]]
+title = "Documentation"
+body = "Principles, component specs, guides, and tutorials."
+date = "Jun 2026"
+
+[[sections]]
 id = "notice"
 title = ""
 icon = ""
