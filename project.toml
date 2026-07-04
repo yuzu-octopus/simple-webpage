@@ -109,7 +109,7 @@ body = "Add SKILL.md to your OpenCode config for AI-assisted development."
 [[sections]]
 id = "docs"
 title = "Documentation"
-icon = "document"
+icon = "grid"
 type = "features"
 
 [[sections.items]]
@@ -131,7 +131,7 @@ body = "Step-by-step: first page, layout masterclass, interactivity, full projec
 [[sections]]
 id = "timeline"
 title = "Milestones"
-icon = "timer"
+icon = "calendar"
 type = "timeline"
 
 [[sections.items]]
