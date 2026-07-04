@@ -23,7 +23,8 @@
     body { font-family: var(--font); background: var(--bg); color: var(--fg); line-height: 1.5; overflow: hidden; height: 100vh; }
     a { color: var(--cyan); text-decoration: none; transition: color var(--transition); }
     a:hover { color: var(--pink); }
-    ::selection { background: var(--purple); color: var(--bg); }
+    ::selection { background: var(--purple); color: #1a1a1a; }
+    ::-moz-selection { background: var(--purple); color: #1a1a1a; }
     :focus-visible { outline: 2px solid var(--pink); outline-offset: 2px; }
 
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; } }
