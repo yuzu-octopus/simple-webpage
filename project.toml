@@ -2,9 +2,10 @@
 name = "simple-webpage"
 tagline = "Vanilla HTML/CSS/JS — No frameworks, no build steps, no bloat"
 subtitle = "A comprehensive reference repository and OpenCode agent skill for building modern webpages with vanilla HTML, CSS, and JavaScript."
-description = "1,796-line SKILL.md with 42 cookbook patterns, design tokens, and 250+ CSS techniques. Build webpages with vanilla HTML/CSS/JS — no frameworks, no build steps."
+description = "1,657-line SKILL.md with 47 cookbook patterns, design tokens, and 250+ CSS techniques. Build webpages with vanilla HTML/CSS/JS — no frameworks, no build steps."
 page_url = "https://yuzu-octopus.github.io/simple-webpage/"
 github_url = "https://github.com/yuzu-octopus/simple-webpage"
+cookbook_url = "https://yuzu-octopus.github.io/simple-webpage/cookbook/"
 quickstart_url = "https://github.com/yuzu-octopus/simple-webpage#quick-start"
 logo_svg = """<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
 <polyline points="12 10 5 20 12 30" stroke="#bd93f9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -34,11 +35,11 @@ icon = "grid"
 type = "features"
 
 [[sections.items]]
-title = "SKILL.md (1,800+ lines)"
+title = "SKILL.md (1,657 lines)"
 body = "Comprehensive agent skill with philosophy, decision framework, HTML/CSS/JS patterns, framework allowlist, anti-patterns, and accessibility minimums."
 
 [[sections.items]]
-title = "Cookbook (40+ patterns)"
+title = "Cookbook (47 patterns)"
 body = "Standalone HTML demos for layouts, navigation, forms, cards, effects, interactivity, and typography."
 
 [[sections.items]]
@@ -126,3 +127,36 @@ body = "Getting started, modern CSS, accessibility, dark mode, responsive, anima
 [[sections.items]]
 title = "Tutorials"
 body = "Step-by-step: first page, layout masterclass, interactivity, full project."
+
+[[sections]]
+id = "notice"
+title = ""
+icon = ""
+type = "custom"
+body = """<div class="callout callout-info"><strong>Tip:</strong> Edit <code>project.toml</code> to add your own sections — features, links, custom HTML, and more.</div>"""
+
+[[sections]]
+id = "links"
+title = "Resources"
+icon = "link"
+type = "links"
+
+[[sections.items]]
+title = "View on GitHub"
+url = "https://github.com/yuzu-octopus/simple-webpage"
+description = "Star the repo, submit issues, contribute"
+
+[[sections.items]]
+title = "Cookbook"
+url = "https://yuzu-octopus.github.io/simple-webpage/cookbook/"
+description = "Browse all 47 patterns with live previews"
+
+[[sections.items]]
+title = "Dracula Theme"
+url = "https://draculatheme.com"
+description = "Official Dracula color palette specification"
+
+[[sections.items]]
+title = "ProjectSite"
+url = "https://github.com/yuzu-octopus/ProjectSite"
+description = "Static site generator for project pages"
