@@ -4,265 +4,224 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cookbook — simple-webpage</title>
-  <meta name="description" content="47 standalone vanilla HTML/CSS/JS patterns. Browse, copy, and customize for your projects.">
+  <meta name="description" content="47 vanilla HTML/CSS/JS patterns — live preview.">
   <meta name="color-scheme" content="dark light">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%2064%2064%27%3E%3Crect%20width%3D%2764%27%20height%3D%2764%27%20rx%3D%2714%27%20fill%3D%27%2344475a%27/%3E%3Crect%20x%3D%2714%27%20y%3D%2716%27%20width%3D%2736%27%20height%3D%2732%27%20rx%3D%274%27%20fill%3D%27none%27%20stroke%3D%27%2350fa7b%27%20stroke-width%3D%272.5%27/%3E%3Cpath%20d%3D%27M24%2026h16%27%20stroke%3D%27%23bd93f9%27%20stroke-width%3D%272%27%20stroke-linecap%3D%27round%27/%3E%3Cpath%20d%3D%27M24%2032h12%27%20stroke%3D%27%236272a4%27%20stroke-width%3D%272%27%20stroke-linecap%3D%27round%27/%3E%3Cpath%20d%3D%27M24%2038h8%27%20stroke%3D%27%236272a4%27%20stroke-width%3D%272%27%20stroke-linecap%3D%27round%27/%3E%3Ccircle%20cx%3D%2748%27%20cy%3D%2716%27%20r%3D%279%27%20fill%3D%27%23bd93f9%27/%3E%3Cpath%20d%3D%27M45%2016h6M48%2013v6%27%20stroke%3D%27%23282a36%27%20stroke-width%3D%272%27%20stroke-linecap%3D%27round%27/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
   <style>
-    :root { color-scheme: dark; --bg: #282a36; --panel: #44475a; --fg: #f8f8f2; --muted: #8892b0; --purple: #bd93f9; --pink: #ff79c6; --cyan: #8be9fd; --green: #50fa7b; --orange: #ffb86c; --red: #ff5555; --font: 'JetBrains Mono', monospace; --transition: 250ms cubic-bezier(0.4, 0, 0.2, 1); }
+    :root { color-scheme: dark; --bg: #282a36; --panel: #44475a; --fg: #f8f8f2; --muted: #8892b0; --purple: #bd93f9; --pink: #ff79c6; --cyan: #8be9fd; --green: #50fa7b; --orange: #ffb86c; --red: #ff5555; --font: 'JetBrains Mono', monospace; --transition: 250ms cubic-bezier(0.4,0,0.2,1); --radius: 8px; }
     [data-theme="light"] { color-scheme: light; --bg: #FFFBEB; --panel: #E2DECA; --fg: #1F1F1F; --muted: #6C664B; --purple: #644AC9; --pink: #A3144D; --cyan: #036A96; --green: #14710A; --orange: #A34D14; --red: #CB3A2A; }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: var(--font), system-ui, sans-serif; background: var(--bg); color: var(--fg); line-height: 1.6; }
+    body { font-family: var(--font), system-ui, sans-serif; background: var(--bg); color: var(--fg); line-height: 1.5; overflow: hidden; height: 100vh; }
     a { color: var(--cyan); text-decoration: none; transition: color var(--transition); }
     a:hover { color: var(--pink); }
     ::selection { background: var(--purple); color: var(--bg); }
-    a:focus-visible, .btn:focus-visible, .mobile-toggle:focus-visible, .theme-toggle:focus-visible { outline: 2px solid var(--pink); outline-offset: 2px; }
+    :focus-visible { outline: 2px solid var(--pink); outline-offset: 2px; }
 
-    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; } }
 
-    /* Sidebar */
-    .sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: 240px; background: var(--panel); border-right: 1px solid var(--muted); display: flex; flex-direction: column; overflow-y: auto; z-index: 1200; }
-    .sidebar-brand { text-align: center; padding: 16px 16px 8px; }
-    .sidebar-brand .logo { width: 80px; height: 80px; margin: 0 auto 8px; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
+    /* ===== LAYOUT ===== */
+    .app { display: flex; height: 100vh; }
+
+    /* ===== SIDEBAR ===== */
+    .sidebar { width: 200px; flex-shrink: 0; background: var(--panel); border-right: 1px solid var(--muted); display: flex; flex-direction: column; z-index: 100; }
+    .sidebar-brand { text-align: center; padding: 16px 12px 8px; }
+    .sidebar-brand .logo { width: 64px; height: 64px; margin: 0 auto 6px; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
     .sidebar-brand .logo svg { width: 100%; height: 100%; }
-    .sidebar-brand .name { color: var(--purple); font-size: 1.25rem; font-weight: 700; line-height: 1.6; }
-    .sidebar-brand .tagline { color: var(--muted); font-size: 0.75rem; line-height: 1.66; }
+    .sidebar-brand .name { color: var(--purple); font-size: 1.1rem; font-weight: 700; line-height: 1.4; }
+    .sidebar-brand .tagline { color: var(--muted); font-size: 0.7rem; line-height: 1.4; }
     .sidebar-divider { border: none; border-top: 1px solid var(--muted); margin: 0; }
-    .sidebar-nav { flex: 1; padding-top: 20px; }
+    .sidebar-nav { flex: 1; padding: 12px 0; overflow-y: auto; }
     .sidebar-nav ul { list-style: none; }
     .sidebar-nav li { margin: 0; }
-    .sidebar-nav a { display: flex; align-items: center; padding: 8px 12px; min-height: 40px; color: var(--muted); font-size: 0.9rem; transition: all var(--transition); text-decoration: none; border-radius: 8px; margin: 2px 8px; }
+    .sidebar-nav a { display: flex; align-items: center; gap: 8px; padding: 6px 12px; min-height: 36px; color: var(--muted); font-size: 0.8rem; transition: all var(--transition); text-decoration: none; border-radius: 6px; margin: 1px 6px; }
     .sidebar-nav a:hover { background: color-mix(in srgb, var(--fg) 8%, transparent); color: var(--fg); }
-    .sidebar-nav a .icon { width: 40px; min-width: 40px; display: flex; align-items: center; justify-content: center; }
-    .sidebar-nav a .icon .material-symbols-outlined { font-size: 24px; }
-    .sidebar-footer { font-size: 0.75rem; line-height: 1.66; color: var(--muted); padding: 16px; text-align: left; }
-    .sidebar-footer div { margin-bottom: 0; }
-    .sidebar-footer a { color: var(--purple); }
+    .sidebar-nav a .icon { width: 32px; min-width: 32px; display: flex; align-items: center; justify-content: center; }
+    .sidebar-nav a .icon .material-symbols-outlined { font-size: 20px; }
 
-    /* Main */
-    .main { margin-left: 240px; min-height: 100vh; }
-    header { text-align: center; padding: 3rem 1.5rem 2rem; border-bottom: 1px solid var(--muted); }
-    header h1 { font-size: clamp(1.5rem, 4vw, 2rem); color: var(--purple); margin-bottom: 0.5rem; }
-    header p { color: var(--muted); font-size: 0.9rem; }
+    /* ===== PATTERN LIST (MIDDLE) ===== */
+    .pane-list { width: 320px; flex-shrink: 0; display: flex; flex-direction: column; border-right: 1px solid var(--muted); background: var(--bg); }
+    .pane-list .search-area { padding: 12px; border-bottom: 1px solid var(--muted); position: relative; }
+    .pane-list .search-area input { width: 100%; padding: 8px 12px 8px 36px; background: var(--panel); border: 1px solid var(--muted); border-radius: var(--radius); color: var(--fg); font-family: var(--font); font-size: 0.8rem; transition: border-color var(--transition); }
+    .pane-list .search-area input:focus { outline: none; border-color: var(--purple); }
+    .pane-list .search-area .search-ico { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 1.1rem; }
+    .pane-list .list-scroll { flex: 1; overflow-y: auto; padding: 8px 12px; }
+    .pane-list .list-count { color: var(--muted); font-size: 0.7rem; padding: 4px 12px 0; text-align: center; }
+    .pane-list .no-match { display: none; text-align: center; padding: 2rem; color: var(--muted); font-size: 0.85rem; }
 
-    .search { max-width: 400px; margin: 1.5rem auto 0; position: relative; }
-    .search input { width: 100%; padding: 10px 16px 10px 40px; background: var(--panel); border: 1px solid var(--muted); border-radius: 8px; color: var(--fg); font-family: var(--font); font-size: 0.85rem; transition: border-color var(--transition); }
-    .search input:focus { outline: none; border-color: var(--purple); }
-    .search .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 1.2rem; }
+    .cat-head { display: flex; align-items: center; gap: 6px; font-size: 0.7rem; color: var(--purple); margin: 16px 0 6px; padding-bottom: 4px; border-bottom: 1px solid var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+    .cat-head .material-symbols-outlined { font-size: 1rem; }
 
-    main { max-width: 1000px; margin: 0 auto; padding: 2rem; }
-    .category { margin-bottom: 2.5rem; }
-    .category h2 { display: flex; align-items: center; gap: 8px; font-size: 1rem; color: var(--purple); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--muted); }
-    .category h2 .material-symbols-outlined { font-size: 1.2rem; }
+    .pat { padding: 6px 10px; border-radius: 6px; cursor: pointer; transition: all var(--transition); margin-bottom: 2px; border: 1px solid transparent; }
+    .pat:hover { background: color-mix(in srgb, var(--fg) 5%, transparent); border-color: var(--muted); }
+    .pat.selected { border-color: var(--purple); background: color-mix(in srgb, var(--purple) 10%, var(--panel)); }
+    .pat .pat-title { font-size: 0.82rem; font-weight: 600; color: var(--fg); }
+    .pat .pat-desc { font-size: 0.72rem; color: var(--muted); margin-top: 1px; }
 
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+    /* ===== PREVIEW PANEL (RIGHT) ===== */
+    .pane-preview { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+    .pane-preview .tabs { display: flex; border-bottom: 1px solid var(--muted); background: var(--panel); flex-shrink: 0; }
+    .pane-preview .tabs .tab { padding: 8px 20px; font-size: 0.8rem; cursor: pointer; border: none; background: none; color: var(--muted); font-family: var(--font); transition: all var(--transition); border-bottom: 2px solid transparent; }
+    .pane-preview .tabs .tab:hover { color: var(--fg); }
+    .pane-preview .tabs .tab.active { color: var(--purple); border-bottom-color: var(--purple); }
+    .pane-preview .tabs .tab-close { margin-left: auto; padding: 8px 16px; font-size: 0.8rem; cursor: pointer; border: none; background: none; color: var(--muted); font-family: var(--font); }
+    .pane-preview .tabs .tab-close:hover { color: var(--red); }
+    .pane-preview .view-area { flex: 1; position: relative; overflow: hidden; }
+    .pane-preview .view-area iframe { width: 100%; height: 100%; border: none; background: #fff; display: block; }
+    .pane-preview .view-area pre { width: 100%; height: 100%; overflow: auto; padding: 16px; font-size: 0.78rem; line-height: 1.5; margin: 0; display: none; }
+    .pane-preview .view-area pre code { background: none; padding: 0; color: var(--green); }
+    .pane-preview .placeholder { display: flex; align-items: center; justify-content: center; height: 100%; color: var(--muted); font-size: 0.9rem; flex-direction: column; gap: 12px; }
+    .pane-preview .placeholder .material-symbols-outlined { font-size: 3rem; }
+    .pane-preview .placeholder p { max-width: 300px; text-align: center; }
 
-    .card { background: var(--panel); border: 1px solid var(--muted); border-radius: 8px; padding: 1rem; transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition); position: relative; overflow: hidden; }
-    .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--purple), var(--pink)); opacity: 0; transition: opacity var(--transition); }
-    .card:hover { border-color: var(--purple); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
-    .card:hover::before { opacity: 1; }
-    .card a { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 0.25rem; }
-    .card p { color: var(--muted); font-size: 0.75rem; line-height: 1.5; }
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1100px) { .sidebar { display: none; } }
+    @media (max-width: 700px) { .pane-list { width: 100%; border-right: none; } .pane-preview { display: none; } .pane-preview.open { display: flex; } .pane-list.hidden { display: none; } }
 
-    @media (prefers-reduced-motion: reduce) { .card { transform: none !important; } }
-
-    .count { color: var(--muted); font-size: 0.8rem; margin-top: 1.5rem; text-align: center; }
-    .no-results { display: none; text-align: center; padding: 3rem; color: var(--muted); }
-
-    .skip-link { position: absolute; left: -9999px; }
-    .skip-link:focus { left: 8px; top: 8px; background: var(--purple); color: var(--bg); padding: 8px 12px; z-index: 1300; }
-
-    .theme-toggle { position: fixed; top: 12px; right: 12px; z-index: 1200; background: var(--panel); border: 1px solid var(--muted); color: var(--fg); padding: 10px 12px; min-width: 44px; min-height: 44px; border-radius: 8px; cursor: pointer; transition: all var(--transition); display: flex; align-items: center; justify-content: center; }
-    .theme-toggle:hover { border-color: var(--purple); color: var(--purple); transform: translateY(-1px); }
+    /* Theme toggle (shared) */
+    .theme-toggle { position: fixed; top: 8px; right: 8px; z-index: 200; background: var(--panel); border: 1px solid var(--muted); color: var(--fg); width: 36px; height: 36px; border-radius: var(--radius); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all var(--transition); }
+    .theme-toggle:hover { border-color: var(--purple); color: var(--purple); }
     .theme-toggle .icon-moon { display: block; }
     .theme-toggle .icon-sun { display: none; }
     [data-theme="light"] .theme-toggle .icon-moon { display: none; }
     [data-theme="light"] .theme-toggle .icon-sun { display: block; }
-    .theme-toggle .material-symbols-outlined { font-size: 24px; }
-
-    .mobile-toggle { display: none; position: fixed; top: 12px; left: 12px; z-index: 1200; background: var(--panel); border: 1px solid var(--muted); color: var(--fg); padding: 10px 12px; min-width: 44px; min-height: 44px; border-radius: 8px; cursor: pointer; transition: background var(--transition); }
-    .mobile-toggle:hover { background: var(--muted); }
-    .mobile-toggle .material-symbols-outlined { font-size: 24px; }
-
-    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.5); z-index: 1100; }
-
-    @media (max-width: 900px) {
-      .sidebar { display: none; }
-      .main { margin-left: 0; }
-      .mobile-toggle { display: block; }
-      .sidebar.open { display: flex; }
-      .sidebar-overlay.open { display: block; }
-      header { padding: 2rem 1rem 1.5rem; }
-      main { padding: 1.5rem 1rem; }
-      .grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px; }
-    }
-
-    footer { text-align: center; padding: 2rem; color: var(--muted); font-size: 0.8rem; border-top: 1px solid var(--muted); }
+    .theme-toggle .material-symbols-outlined { font-size: 20px; }
   </style>
 </head>
 <body>
-
-<button class="mobile-toggle" id="mobile-toggle" onclick="toggleSidebar()" aria-label="Toggle menu" aria-controls="sidebar" aria-expanded="false"><span class="material-symbols-outlined" aria-hidden="true">menu</span></button>
-<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
-<a class="skip-link" href="#main-content">Skip to patterns</a>
 
 <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
   <span class="material-symbols-outlined icon-moon" aria-hidden="true">dark_mode</span>
   <span class="material-symbols-outlined icon-sun" aria-hidden="true">light_mode</span>
 </button>
 
-<aside class="sidebar" id="sidebar">
-  <div class="sidebar-brand">
-    <div class="logo"><svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-<polyline points="12 10 5 20 12 30" stroke="#bd93f9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-<polyline points="28 10 35 20 28 30" stroke="#bd93f9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-<line x1="24" y1="30" x2="16" y2="10" stroke="#50fa7b" stroke-width="2" stroke-linecap="round"/>
-</svg></div>
-    <div class="name">simple-webpage</div>
-    <div class="tagline">Cookbook · 47 patterns</div>
-  </div>
-  <hr class="sidebar-divider">
-  <nav class="sidebar-nav" aria-label="Cookbook navigation">
-    <ul>
-      <li><a href="../"><span class="icon"><span class="material-symbols-outlined" aria-hidden="true">arrow_back</span></span> Back to Home</a></li>
-      <li><a href="#layouts"><span class="icon"><span class="material-symbols-outlined" aria-hidden="true">grid_view</span></span> Layouts</a></li>
-      <li><a href="#navigation"><span class="icon"><span class="material-symbols-outlined" aria-hidden="true">explore</span></span> Navigation</a></li>
-      <li><a href="#forms"><span class="icon"><span class="material-symbols-outlined" aria-hidden="true">description</span></span> Forms</a></li>
-      <li><a href="#cards"><span class="icon"><span class="material-symbols-outlined" aria-hidden="true">style</span></span> Cards</a></li>
-      <li><a href="#effects"><span class="icon"><span class="material-symbols-outlined" aria-hidden="true">magic</span></span> Effects</a></li>
-      <li><a href="#interactivity"><span class="icon"><span class="material-symbols-outlined" aria-hidden="true">touch_app</span></span> Interactivity</a></li>
-      <li><a href="#typography"><span class="icon"><span class="material-symbols-outlined" aria-hidden="true">text_fields</span></span> Typography</a></li>
-      <li><a href="#styles"><span class="icon"><span class="material-symbols-outlined" aria-hidden="true">palette</span></span> Styles</a></li>
-    </ul>
-  </nav>
-  <hr class="sidebar-divider">
-  <div class="sidebar-footer">
-    <div>Cookbook</div>
-    <div>47 standalone patterns</div>
-    <div>Part of <a href="../">simple-webpage</a></div>
-  </div>
-</aside>
+<div class="app">
 
-<main class="main" id="main-content">
-  <header>
-    <h1>Cookbook</h1>
-    <p>47 standalone HTML patterns — open in browser, copy into project</p>
-    <div class="search">
-      <span class="material-symbols-outlined search-icon" aria-hidden="true">search</span>
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="logo"><svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="12 10 5 20 12 30" stroke="#bd93f9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><polyline points="28 10 35 20 28 30" stroke="#bd93f9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><line x1="24" y1="30" x2="16" y2="10" stroke="#50fa7b" stroke-width="2" stroke-linecap="round"/></svg></div>
+      <div class="name">simple-webpage</div>
+      <div class="tagline">Cookbook · 47 patterns</div>
+    </div>
+    <hr class="sidebar-divider">
+    <nav class="sidebar-nav" aria-label="Cookbook">
+      <ul>
+        <li><a href="../"><span class="icon"><span class="material-symbols-outlined" aria-hidden="true">arrow_back</span></span> Home</a></li>
+        <li><a href="#cat-layouts" onclick="scrollToCat('cat-layouts')"><span class="icon"><span class="material-symbols-outlined" aria-hidden="true">grid_view</span></span> Layouts</a></li>
+        <li><a href="#cat-nav" onclick="scrollToCat('cat-nav')"><span class="icon"><span class="material-symbols-outlined" aria-hidden="true">explore</span></span> Navigation</a></li>
+        <li><a href="#cat-forms" onclick="scrollToCat('cat-forms')"><span class="icon"><span class="material-symbols-outlined" aria-hidden="true">description</span></span> Forms</a></li>
+        <li><a href="#cat-cards" onclick="scrollToCat('cat-cards')"><span class="icon"><span class="material-symbols-outlined" aria-hidden="true">style</span></span> Cards</a></li>
+        <li><a href="#cat-effects" onclick="scrollToCat('cat-effects')"><span class="icon"><span class="material-symbols-outlined" aria-hidden="true">auto_awesome</span></span> Effects</a></li>
+        <li><a href="#cat-interactivity" onclick="scrollToCat('cat-interactivity')"><span class="icon"><span class="material-symbols-outlined" aria-hidden="true">touch_app</span></span> Interactivity</a></li>
+        <li><a href="#cat-typo" onclick="scrollToCat('cat-typo')"><span class="icon"><span class="material-symbols-outlined" aria-hidden="true">text_fields</span></span> Typography</a></li>
+        <li><a href="#cat-styles" onclick="scrollToCat('cat-styles')"><span class="icon"><span class="material-symbols-outlined" aria-hidden="true">palette</span></span> Styles</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- PATTERN LIST -->
+  <div class="pane-list" id="pane-list">
+    <div class="search-area">
+      <span class="material-symbols-outlined search-ico" aria-hidden="true">search</span>
       <input type="text" id="filter" placeholder="Filter patterns..." aria-label="Filter patterns">
     </div>
-  </header>
+    <div class="list-scroll" id="list-scroll">
 
-  <main>
+      <div class="cat-head" id="cat-layouts"><span class="material-symbols-outlined" aria-hidden="true">grid_view</span> Layouts</div>
+      <div class="pat" data-url="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/layouts/responsive-grid/index.html" onclick="loadPattern(this)"><div class="pat-title">Responsive Grid</div><div class="pat-desc">repeat(auto-fit, minmax())</div></div>
+      <div class="pat" data-url="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/layouts/sidebar-layout/index.html" onclick="loadPattern(this)"><div class="pat-title">Sidebar Layout</div><div class="pat-desc">Flexbox dashboard</div></div>
+      <div class="pat" data-url="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/layouts/hero-section/index.html" onclick="loadPattern(this)"><div class="pat-title">Hero Section</div><div class="pat-desc">Flexbox/Grid hero</div></div>
+      <div class="pat" data-url="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/layouts/holy-grail/index.html" onclick="loadPattern(this)"><div class="pat-title">Holy Grail</div><div class="pat-desc">CSS Grid classic</div></div>
+      <div class="pat" data-url="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/layouts/dashboard/index.html" onclick="loadPattern(this)"><div class="pat-title">Dashboard</div><div class="pat-desc">grid-template-areas</div></div>
+      <div class="pat" data-url="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/layouts/masonry/index.html" onclick="loadPattern(this)"><div class="pat-title">Masonry</div><div class="pat-desc">CSS columns / grid</div></div>
 
-    <div class="category" id="layouts" data-category="layouts">
-      <h2><span class="material-symbols-outlined" aria-hidden="true">grid_view</span> Layouts</h2>
-      <div class="grid">
-        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/layouts/responsive-grid/index.html">Responsive Grid</a><p>repeat(auto-fit, minmax())</p></div>
-        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/layouts/sidebar-layout/index.html">Sidebar Layout</a><p>Flexbox dashboard layout</p></div>
-        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/layouts/hero-section/index.html">Hero Section</a><p>Flexbox/Grid hero pattern</p></div>
-        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/layouts/holy-grail/index.html">Holy Grail</a><p>CSS Grid classic layout</p></div>
-        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/layouts/dashboard/index.html">Dashboard</a><p>grid-template-areas</p></div>
-        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/layouts/masonry/index.html">Masonry</a><p>CSS columns / grid</p></div>
-      </div>
+      <div class="cat-head" id="cat-nav"><span class="material-symbols-outlined" aria-hidden="true">explore</span> Navigation</div>
+      <div class="pat" data-url="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/navigation/navbar/index.html" onclick="loadPattern(this)"><div class="pat-title">Navbar</div><div class="pat-desc">Flexbox + margin:auto</div></div>
+      <div class="pat" data-url="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/navigation/sidebar-menu/index.html" onclick="loadPattern(this)"><div class="pat-title">Sidebar Menu</div><div class="pat-desc">Animated CSS Grid</div></div>
+      <div class="pat" data-url="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/navigation/mobile-hamburger/index.html" onclick="loadPattern(this)"><div class="pat-title">Mobile Hamburger</div><div class="pat-desc">ARIA accessible toggle</div></div>
+      <div class="pat" data-url="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/navigation/sticky-header/index.html" onclick="loadPattern(this)"><div class="pat-title">Sticky Header</div><div class="pat-desc">position: sticky</div></div>
+      <div class="pat" data-url="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/navigation/breadcrumbs/index.html" onclick="loadPattern(this)"><div class="pat-title">Breadcrumbs</div><div class="pat-desc">Semantic nav + aria</div></div>
+
+      <div class="cat-head" id="cat-forms"><span class="material-symbols-outlined" aria-hidden="true">description</span> Forms</div>
+      <div class="pat" data-url="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/forms/login-signup/index.html" onclick="loadPattern(this)"><div class="pat-title">Login/Signup</div><div class="pat-desc">Validation + responsive</div></div>
+      <div class="pat" data-url="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/forms/form-validation/index.html" onclick="loadPattern(this)"><div class="pat-title">Form Validation</div><div class="pat-desc">Front-end validation</div></div>
+      <div class="pat" data-url="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/forms/search-bar/index.html" onclick="loadPattern(this)"><div class="pat-title">Search Bar</div><div class="pat-desc">Input with icon</div></div>
+      <div class="pat" data-url="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/forms/contact-form/index.html" onclick="loadPattern(this)"><div class="pat-title">Contact Form</div><div class="pat-desc">Multi-field layout</div></div>
+      <div class="pat" data-url="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/forms/multi-step/index.html" onclick="loadPattern(this)"><div class="pat-title">Multi-Step</div><div class="pat-desc">Step wizard</div></div>
+
+      <div class="cat-head" id="cat-cards"><span class="material-symbols-outlined" aria-hidden="true">style</span> Cards</div>
+      <div class="pat" data-url="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/cards/profile-card/index.html" onclick="loadPattern(this)"><div class="pat-title">Profile Card</div><div class="pat-desc">User profile layout</div></div>
+      <div class="pat" data-url="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/cards/product-card/index.html" onclick="loadPattern(this)"><div class="pat-title">Product Card</div><div class="pat-desc">E-commerce card</div></div>
+      <div class="pat" data-url="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/cards/article-card/index.html" onclick="loadPattern(this)"><div class="pat-title">Article Card</div><div class="pat-desc">Blog feed preview</div></div>
+      <div class="pat" data-url="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/cards/pricing-card/index.html" onclick="loadPattern(this)"><div class="pat-title">Pricing Card</div><div class="pat-desc">Price tiers</div></div>
+
+      <div class="cat-head" id="cat-effects"><span class="material-symbols-outlined" aria-hidden="true">auto_awesome</span> Effects</div>
+      <div class="pat" data-url="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/effects/glassmorphism/index.html" onclick="loadPattern(this)"><div class="pat-title">Glassmorphism</div><div class="pat-desc">backdrop-filter: blur</div></div>
+      <div class="pat" data-url="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/effects/neumorphism/index.html" onclick="loadPattern(this)"><div class="pat-title">Neumorphism</div><div class="pat-desc">Dual box-shadows</div></div>
+      <div class="pat" data-url="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/effects/gradient-text/index.html" onclick="loadPattern(this)"><div class="pat-title">Gradient Text</div><div class="pat-desc">background-clip: text</div></div>
+      <div class="pat" data-url="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/effects/border-animations/index.html" onclick="loadPattern(this)"><div class="pat-title">Border Animations</div><div class="pat-desc">@property + conic</div></div>
+      <div class="pat" data-url="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/effects/hover-effects/index.html" onclick="loadPattern(this)"><div class="pat-title">Hover Effects</div><div class="pat-desc">Transform + transition</div></div>
+      <div class="pat" data-url="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/effects/scroll-snap/index.html" onclick="loadPattern(this)"><div class="pat-title">Scroll Snap</div><div class="pat-desc">CSS-only carousel</div></div>
+      <div class="pat" data-url="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/effects/scroll-driven-animations/index.html" onclick="loadPattern(this)"><div class="pat-title">Scroll-Driven</div><div class="pat-desc">animation-timeline: view()</div></div>
+      <div class="pat" data-url="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/effects/animated-tooltips/index.html" onclick="loadPattern(this)"><div class="pat-title">Tooltips</div><div class="pat-desc">::before/::after + attr()</div></div>
+      <div class="pat" data-url="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/effects/triangles/index.html" onclick="loadPattern(this)"><div class="pat-title">Triangles</div><div class="pat-desc">Border trick shapes</div></div>
+
+      <div class="cat-head" id="cat-interactivity"><span class="material-symbols-outlined" aria-hidden="true">touch_app</span> Interactivity</div>
+      <div class="pat" data-url="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/interactivity/dark-mode/index.html" onclick="loadPattern(this)"><div class="pat-title">Dark Mode</div><div class="pat-desc">CSS vars + localStorage</div></div>
+      <div class="pat" data-url="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/interactivity/todo-app/index.html" onclick="loadPattern(this)"><div class="pat-title">Todo App</div><div class="pat-desc">localStorage CRUD</div></div>
+      <div class="pat" data-url="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/interactivity/modal-dialog/index.html" onclick="loadPattern(this)"><div class="pat-title">Modal Dialog</div><div class="pat-desc">dialog element</div></div>
+      <div class="pat" data-url="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/interactivity/accordion/index.html" onclick="loadPattern(this)"><div class="pat-title">Accordion</div><div class="pat-desc">details/summary</div></div>
+      <div class="pat" data-url="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/interactivity/carousel/index.html" onclick="loadPattern(this)"><div class="pat-title">Carousel</div><div class="pat-desc">Scroll-snap + JS</div></div>
+      <div class="pat" data-url="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/interactivity/tabs/index.html" onclick="loadPattern(this)"><div class="pat-title">Tabs</div><div class="pat-desc">:checked pseudo-class</div></div>
+      <div class="pat" data-url="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/interactivity/toast-notifications/index.html" onclick="loadPattern(this)"><div class="pat-title">Toasts</div><div class="pat-desc">JS + CSS transitions</div></div>
+      <div class="pat" data-url="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/interactivity/popover-api/index.html" onclick="loadPattern(this)"><div class="pat-title">Popover API</div><div class="pat-desc">HTML popover attr</div></div>
+      <div class="pat" data-url="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/interactivity/css-only-dropdown/index.html" onclick="loadPattern(this)"><div class="pat-title">CSS Dropdown</div><div class="pat-desc">:focus/:focus-within</div></div>
+
+      <div class="cat-head" id="cat-typo"><span class="material-symbols-outlined" aria-hidden="true">text_fields</span> Typography</div>
+      <div class="pat" data-url="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/typography/fluid-type/index.html" onclick="loadPattern(this)"><div class="pat-title">Fluid Type</div><div class="pat-desc">clamp() responsive sizing</div></div>
+      <div class="pat" data-url="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/typography/text-balance/index.html" onclick="loadPattern(this)"><div class="pat-title">Text Balance</div><div class="pat-desc">text-wrap: balance</div></div>
+      <div class="pat" data-url="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/typography/decorative-headings/index.html" onclick="loadPattern(this)"><div class="pat-title">Decorative Headings</div><div class="pat-desc">Gradient + writing-mode</div></div>
+      <div class="pat" data-url="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/typography/vertical-rhythm/index.html" onclick="loadPattern(this)"><div class="pat-title">Vertical Rhythm</div><div class="pat-desc">Consistent spacing</div></div>
+
+      <div class="cat-head" id="cat-styles"><span class="material-symbols-outlined" aria-hidden="true">palette</span> Style Inspiration</div>
+      <div class="pat" data-url="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/styles/minimalist/index.html" onclick="loadPattern(this)"><div class="pat-title">Minimalist</div><div class="pat-desc">Clean whitespace</div></div>
+      <div class="pat" data-url="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/styles/dark-premium/index.html" onclick="loadPattern(this)"><div class="pat-title">Dark Premium</div><div class="pat-desc">Black bg, SaaS style</div></div>
+      <div class="pat" data-url="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/styles/saas-dashboard/index.html" onclick="loadPattern(this)"><div class="pat-title">SaaS Dashboard</div><div class="pat-desc">Sidebar + stats</div></div>
+      <div class="pat" data-url="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/styles/portfolio/index.html" onclick="loadPattern(this)"><div class="pat-title">Portfolio</div><div class="pat-desc">Serif, editorial</div></div>
+      <div class="pat" data-url="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/styles/landing-page/index.html" onclick="loadPattern(this)"><div class="pat-title">Landing Page</div><div class="pat-desc">Hero + CTA</div></div>
+
     </div>
+    <div class="list-count" id="list-count">47 patterns</div>
+    <div class="no-match" id="no-match">No patterns match.</div>
+  </div>
 
-    <div class="category" id="navigation" data-category="navigation">
-      <h2><span class="material-symbols-outlined" aria-hidden="true">explore</span> Navigation</h2>
-      <div class="grid">
-        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/navigation/navbar/index.html">Navbar</a><p>Flexbox + margin:auto</p></div>
-        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/navigation/sidebar-menu/index.html">Sidebar Menu</a><p>Animated CSS Grid menu</p></div>
-        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/navigation/mobile-hamburger/index.html">Mobile Hamburger</a><p>ARIA accessible toggle</p></div>
-        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/navigation/sticky-header/index.html">Sticky Header</a><p>position: sticky</p></div>
-        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/navigation/breadcrumbs/index.html">Breadcrumbs</a><p>Semantic nav + aria-label</p></div>
-      </div>
+  <!-- PREVIEW PANEL -->
+  <div class="pane-preview" id="pane-preview">
+    <div class="tabs">
+      <button class="tab active" id="tab-render" onclick="switchTab('render')">Render</button>
+      <button class="tab" id="tab-source" onclick="switchTab('source')">Source Code</button>
+      <button class="tab-close" id="tab-close" onclick="closePreview()" aria-label="Close preview"><span class="material-symbols-outlined" style="font-size:1.1rem;">close</span></button>
     </div>
-
-    <div class="category" id="forms" data-category="forms">
-      <h2><span class="material-symbols-outlined" aria-hidden="true">description</span> Forms</h2>
-      <div class="grid">
-        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/forms/login-signup/index.html">Login/Signup</a><p>Validation + responsive</p></div>
-        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/forms/form-validation/index.html">Form Validation</a><p>Front-end validation</p></div>
-        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/forms/search-bar/index.html">Search Bar</a><p>Input with icon</p></div>
-        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/forms/contact-form/index.html">Contact Form</a><p>Multi-field layout</p></div>
-        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/forms/multi-step/index.html">Multi-Step</a><p>Step wizard</p></div>
+    <div class="view-area" id="view-area">
+      <div class="placeholder" id="placeholder">
+        <span class="material-symbols-outlined" aria-hidden="true">touch_app</span>
+        <p>Select a pattern from the list to preview it here</p>
       </div>
+      <iframe id="preview-frame" sandbox="allow-same-origin" title="Pattern preview" style="display:none;"></iframe>
+      <pre id="source-view" style="display:none;"><code id="source-code"></code></pre>
     </div>
+  </div>
 
-    <div class="category" id="cards" data-category="cards">
-      <h2><span class="material-symbols-outlined" aria-hidden="true">style</span> Cards</h2>
-      <div class="grid">
-        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/cards/profile-card/index.html">Profile Card</a><p>User profile layout</p></div>
-        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/cards/product-card/index.html">Product Card</a><p>E-commerce card</p></div>
-        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/cards/article-card/index.html">Article Card</a><p>Blog feed preview</p></div>
-        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/cards/pricing-card/index.html">Pricing Card</a><p>Price tiers</p></div>
-      </div>
-    </div>
-
-    <div class="category" id="effects" data-category="effects">
-      <h2><span class="material-symbols-outlined" aria-hidden="true">magic</span> Effects</h2>
-      <div class="grid">
-        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/effects/glassmorphism/index.html">Glassmorphism</a><p>backdrop-filter: blur</p></div>
-        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/effects/neumorphism/index.html">Neumorphism</a><p>Dual box-shadows</p></div>
-        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/effects/gradient-text/index.html">Gradient Text</a><p>background-clip: text</p></div>
-        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/effects/border-animations/index.html">Border Animations</a><p>@property + conic</p></div>
-        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/effects/hover-effects/index.html">Hover Effects</a><p>Transform + transition</p></div>
-        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/effects/scroll-snap/index.html">Scroll Snap</a><p>CSS-only carousel</p></div>
-        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/effects/scroll-driven-animations/index.html">Scroll-Driven</a><p>animation-timeline: view()</p></div>
-        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/effects/animated-tooltips/index.html">Tooltips</a><p>::before/::after + attr()</p></div>
-        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/effects/triangles/index.html">Triangles</a><p>Border trick shapes</p></div>
-      </div>
-    </div>
-
-    <div class="category" id="interactivity" data-category="interactivity">
-      <h2><span class="material-symbols-outlined" aria-hidden="true">touch_app</span> Interactivity</h2>
-      <div class="grid">
-        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/interactivity/dark-mode/index.html">Dark Mode</a><p>CSS vars + localStorage</p></div>
-        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/interactivity/todo-app/index.html">Todo App</a><p>localStorage CRUD</p></div>
-        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/interactivity/modal-dialog/index.html">Modal Dialog</a><p>dialog element</p></div>
-        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/interactivity/accordion/index.html">Accordion</a><p>details/summary</p></div>
-        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/interactivity/carousel/index.html">Carousel</a><p>Scroll-snap + JS</p></div>
-        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/interactivity/tabs/index.html">Tabs</a><p>:checked pseudo-class</p></div>
-        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/interactivity/toast-notifications/index.html">Toasts</a><p>JS + CSS transitions</p></div>
-        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/interactivity/popover-api/index.html">Popover API</a><p>HTML popover attribute</p></div>
-        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/interactivity/css-only-dropdown/index.html">CSS Dropdown</a><p>:focus/:focus-within</p></div>
-      </div>
-    </div>
-
-    <div class="category" id="typography" data-category="typography">
-      <h2><span class="material-symbols-outlined" aria-hidden="true">text_fields</span> Typography</h2>
-      <div class="grid">
-        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/typography/fluid-type/index.html">Fluid Type</a><p>clamp() responsive sizing</p></div>
-        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/typography/text-balance/index.html">Text Balance</a><p>text-wrap: balance</p></div>
-        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/typography/decorative-headings/index.html">Decorative Headings</a><p>Gradient + writing-mode</p></div>
-        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/typography/vertical-rhythm/index.html">Vertical Rhythm</a><p>Consistent spacing</p></div>
-      </div>
-    </div>
-
-    <div class="category" id="styles" data-category="styles">
-      <h2><span class="material-symbols-outlined" aria-hidden="true">palette</span> Style Inspiration</h2>
-      <div class="grid">
-        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/styles/minimalist/index.html">Minimalist</a><p>Clean whitespace, dev tools</p></div>
-        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/styles/dark-premium/index.html">Dark Premium</a><p>Black bg, SaaS style</p></div>
-        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/styles/saas-dashboard/index.html">SaaS Dashboard</a><p>Sidebar + stats + tables</p></div>
-        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/styles/portfolio/index.html">Portfolio</a><p>Serif, editorial layout</p></div>
-        <div class="card"><a href="https://raw.githubusercontent.com/yuzu-octopus/simple-webpage/main/skills/simple-webpage/cookbook/styles/landing-page/index.html">Landing Page</a><p>Hero + features + CTA</p></div>
-      </div>
-    </div>
-
-    <div class="no-results" id="no-results">No patterns match your filter.</div>
-    <p class="count" id="count">47 patterns</p>
-  </main>
-
-  <footer>simple-webpage &mdash; vanilla HTML/CSS/JS, no frameworks</footer>
-</main>
+</div>
 
 <script>
 (function() {
-  var saved = localStorage.getItem('theme');
-  if (saved) document.documentElement.setAttribute('data-theme', saved);
+  var s = localStorage.getItem('theme');
+  if (s) document.documentElement.setAttribute('data-theme', s);
 })();
 
 function toggleTheme() {
@@ -272,45 +231,81 @@ function toggleTheme() {
   localStorage.setItem('theme', t);
 }
 
-function toggleSidebar() {
-  var btn = document.getElementById('mobile-toggle');
-  var sidebar = document.querySelector('.sidebar');
-  var overlay = document.getElementById('sidebar-overlay');
-  var open = sidebar.classList.toggle('open');
-  overlay.classList.toggle('open');
-  btn.setAttribute('aria-expanded', open);
-}
-
-function closeSidebar() {
-  document.querySelector('.sidebar').classList.remove('open');
-  document.getElementById('sidebar-overlay').classList.remove('open');
-  document.getElementById('mobile-toggle').setAttribute('aria-expanded', 'false');
-}
-
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape' && document.querySelector('.sidebar.open')) {
-    closeSidebar();
+function scrollToCat(id) {
+  var el = document.getElementById(id);
+  if (el) {
+    var scroll = document.getElementById('list-scroll');
+    el.scrollIntoView({ block: 'start' });
   }
-});
+}
 
-// Filter patterns
+var currentSource = '';
+
+function loadPattern(el) {
+  document.querySelectorAll('.pat').forEach(function(p) { p.classList.remove('selected'); });
+  el.classList.add('selected');
+
+  var url = el.getAttribute('data-url');
+  document.getElementById('placeholder').style.display = 'none';
+
+  var iframe = document.getElementById('preview-frame');
+
+  // Render tab: fetch HTML and inject into iframe
+  fetch(url).then(function(r) { return r.text(); }).then(function(html) {
+    iframe.srcdoc = html;
+    iframe.style.display = 'block';
+    currentSource = html;
+    document.getElementById('source-code').textContent = html;
+    document.getElementById('tab-render').click(); // switch to render tab
+  }).catch(function() {
+    iframe.style.display = 'none';
+  });
+
+  // Mobile: show preview
+  if (window.innerWidth < 700) {
+    document.getElementById('pane-list').classList.add('hidden');
+    document.getElementById('pane-preview').classList.add('open');
+  }
+}
+
+function switchTab(tab) {
+  document.getElementById('tab-render').classList.toggle('active', tab === 'render');
+  document.getElementById('tab-source').classList.toggle('active', tab === 'source');
+  document.getElementById('preview-frame').style.display = tab === 'render' ? 'block' : 'none';
+  document.getElementById('source-view').style.display = tab === 'source' ? 'block' : 'none';
+}
+
+function closePreview() {
+  document.getElementById('preview-frame').style.display = 'none';
+  document.getElementById('source-view').style.display = 'none';
+  document.getElementById('placeholder').style.display = 'flex';
+  document.querySelectorAll('.pat').forEach(function(p) { p.classList.remove('selected'); });
+  document.getElementById('pane-preview').classList.remove('open');
+  document.getElementById('pane-list').classList.remove('hidden');
+}
+
+// Filter
 var input = document.getElementById('filter');
 if (input) {
   input.addEventListener('input', function() {
     var q = this.value.toLowerCase();
     var visible = 0;
-    document.querySelectorAll('.card').forEach(function(card) {
-      var match = card.textContent.toLowerCase().indexOf(q) !== -1;
-      card.style.display = match ? '' : 'none';
+    document.querySelectorAll('.pat').forEach(function(pat) {
+      var match = pat.textContent.toLowerCase().indexOf(q) !== -1;
+      pat.style.display = match ? '' : 'none';
       if (match) visible++;
     });
-    document.querySelectorAll('.category').forEach(function(cat) {
-      var hasCards = cat.querySelectorAll('.card').length;
-      var hasVisible = cat.querySelectorAll('.card:not([style*="display: none"])').length > 0;
-      cat.style.display = hasCards === 0 || hasVisible ? '' : 'none';
+    document.querySelectorAll('.cat-head').forEach(function(h) {
+      var next = h.nextElementSibling;
+      var hasVisible = false;
+      while (next && next.classList.contains('pat')) {
+        if (next.style.display !== 'none') { hasVisible = true; break; }
+        next = next.nextElementSibling;
+      }
+      h.style.display = hasVisible ? '' : 'none';
     });
-    document.getElementById('count').textContent = visible + ' / 47 patterns';
-    document.getElementById('no-results').style.display = visible === 0 ? 'block' : 'none';
+    document.getElementById('list-count').textContent = visible + ' / 47 patterns';
+    document.getElementById('no-match').style.display = visible === 0 ? 'block' : 'none';
   });
 }
 </script>
