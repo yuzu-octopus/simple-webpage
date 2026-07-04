@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js" defer></script>
@@ -94,10 +94,23 @@
     [data-theme="light"] .theme-toggle .icon-sun { display: block; }
     .theme-toggle .material-symbols-outlined { font-size: 22px; }
 
-    /* Prism overrides for Dracula dark */
-    code[class*="language-"], pre[class*="language-"] { text-shadow: none; font-size: 0.82rem; background: transparent !important; }
-    :not(pre) > code[class*="language-"] { background: var(--panel) !important; padding: 1px 6px; border-radius: 3px; }
-    pre[class*="language-"] { padding: 20px !important; margin: 0 !important; overflow: auto; }
+    /* Prism overrides — Dracula token colors */
+    code[class*="language-"] { text-shadow: none; font-family: var(--font), system-ui, sans-serif; font-size: 0.82rem; background: none; padding: 0; color: var(--fg); }
+    pre[class*="language-"] { background: transparent !important; padding: 20px !important; margin: 0 !important; overflow: auto; }
+    .token.comment, .token.prolog, .token.cdata, .token.doctype { color: var(--muted); }
+    .token.punctuation { color: var(--fg); }
+    .token.namespace { opacity: 0.8; }
+    .token.keyword, .token.operator { color: var(--pink); }
+    .token.string, .token.attr-value, .token.regex { color: var(--yellow); }
+    .token.function, .token.attr-name { color: var(--green); }
+    .token.number, .token.boolean, .token.constant, .token.parameter, .token.variable { color: var(--orange); }
+    .token.class-name, .token.builtin, .token.property, .token.url, .token.symbol { color: var(--cyan); }
+    .token.tag, .token.selector, .token.entity, .token.atrule { color: var(--pink); }
+    .token.decorator { color: var(--purple); }
+    .token.important, .token.bold { font-weight: 700; }
+    .token.italic { font-style: italic; }
+    .token.deleted { color: var(--red); }
+    .token.inserted { color: var(--green); }
   </style>
 </head>
 <body>
