@@ -11,16 +11,7 @@ logo_svg = """<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
 <polyline points="46 16 56 32 46 48" stroke="var(--purple)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
 <line x1="40" y1="48" x2="24" y2="16" stroke="var(--green)" stroke-width="2.5" stroke-linecap="round"/>
 </svg>"""
-favicon_dark = """<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-<polyline points="6 5 2.5 10 6 15" stroke="#bd93f9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<polyline points="14 5 17.5 10 14 15" stroke="#bd93f9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<line x1="12" y1="15" x2="8" y2="5" stroke="#50fa7b" stroke-width="1.2" stroke-linecap="round"/>
-</svg>"""
-favicon_light = """<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-<polyline points="6 5 2.5 10 6 15" stroke="#644AC9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<polyline points="14 5 17.5 10 14 15" stroke="#644AC9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<line x1="12" y1="15" x2="8" y2="5" stroke="#14710A" stroke-width="1.2" stroke-linecap="round"/>
-</svg>"""
+
 [brand]
 tagline = "SKILL.md · HTML · CSS · JS · Design Tokens"
 
@@ -134,7 +125,7 @@ body = "Step-by-step: first page, layout masterclass, interactivity, full projec
 [[sections]]
 id = "notice"
 title = ""
-icon = ""
+icon = "info"
 type = "notice"
 notice_type = "info"
 body = """<strong>Tip:</strong> Edit <code>project.toml</code> to add your own sections — features, links, custom HTML, and more."""
