@@ -5,20 +5,22 @@ subtitle = "A comprehensive reference repository and OpenCode agent skill for bu
 description = "1,657-line SKILL.md with 47 cookbook patterns, design tokens, and 250+ CSS techniques. Build webpages with vanilla HTML/CSS/JS — no frameworks, no build steps."
 page_url = "https://yuzu-octopus.github.io/simple-webpage/"
 github_url = "https://github.com/yuzu-octopus/simple-webpage"
-cookbook_url = "https://yuzu-octopus.github.io/simple-webpage/cookbook/"
-quickstart_url = "https://github.com/yuzu-octopus/simple-webpage#quick-start"
 logo_svg = """<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
 <rect width="64" height="64" rx="14" fill="var(--panel)"/>
 <polyline points="18 16 8 32 18 48" stroke="var(--purple)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
 <polyline points="46 16 56 32 46 48" stroke="var(--purple)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
 <line x1="40" y1="48" x2="24" y2="16" stroke="var(--green)" stroke-width="2.5" stroke-linecap="round"/>
 </svg>"""
-favicon_data = """<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+favicon_dark = """<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
 <polyline points="6 5 2.5 10 6 15" stroke="#bd93f9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 <polyline points="14 5 17.5 10 14 15" stroke="#bd93f9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 <line x1="12" y1="15" x2="8" y2="5" stroke="#50fa7b" stroke-width="1.2" stroke-linecap="round"/>
 </svg>"""
-
+favicon_light = """<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+<polyline points="6 5 2.5 10 6 15" stroke="#644AC9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="14 5 17.5 10 14 15" stroke="#644AC9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<line x1="12" y1="15" x2="8" y2="5" stroke="#14710A" stroke-width="1.2" stroke-linecap="round"/>
+</svg>"""
 [brand]
 tagline = "SKILL.md · HTML · CSS · JS · Design Tokens"
 
@@ -110,7 +112,7 @@ body = "Add SKILL.md to your OpenCode config for AI-assisted development."
 [[sections]]
 id = "docs"
 title = "Documentation"
-icon = "grid"
+icon = "book"
 type = "features"
 
 [[sections.items]]
@@ -133,8 +135,9 @@ body = "Step-by-step: first page, layout masterclass, interactivity, full projec
 id = "notice"
 title = ""
 icon = ""
-type = "custom"
-body = """<div class="callout callout-info"><strong>Tip:</strong> Edit <code>project.toml</code> to add your own sections — features, links, custom HTML, and more.</div>"""
+type = "notice"
+notice_type = "info"
+body = """<strong>Tip:</strong> Edit <code>project.toml</code> to add your own sections — features, links, custom HTML, and more."""
 
 [[sections]]
 id = "links"
